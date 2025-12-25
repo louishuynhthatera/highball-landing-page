@@ -1,209 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Lottie + Video Background</title>
 
-    <style>
-      #bg-video {
-        position: fixed;
-        inset: 0;
-        width: 100vw;
-        height: 100vh;
-        object-fit: cover;
-        z-index: 1;
-      }
-
-      #loading-wrapper {
-        position: fixed;
-        inset: 0;
-        background: #000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9;
-        transition: opacity 0.8s ease;
-      }
-
-      #lottie {
-        width: 100vw;
-        height: 100vh;
-      }
-
-      video {
-        width: 100%;
-        height: auto;
-      }
-
-      #main-header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        z-index: 10;
-
-        opacity: 0;
-        pointer-events: none;
-        /* transition: opacity 0.8s ease; */
-        padding-top: 22px;
-
-        transform: translateY(-12px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
-      }
-
-      #main-header.show {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(0);
-      }
-
-      .sidebar {
-        flex-basis: 20%;
-        display: flex;
-        align-items: center;
-        padding-right: 22px;
-        justify-content: space-between;
-      }
-
-      .sidebar a {
-        font-family: "Neue Haas Grotesk Display Pro", sans-serif;
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 20px;
-        letter-spacing: -0.005em;
-        text-decoration: none;
-        color: #ffffff;
-      }
-
-      .sidebar a:hover {
-        opacity: 0.7;
-      }
-      .logo {
-        padding-left: 22px;
-      }
-
-      .content-background {
-        position: fixed;
-        inset: 0;
-        z-index: 2;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 16px;
-        pointer-events: none;
-      }
-
-      .content-background img {
-        max-width: 90vw;
-        height: auto;
-      }
-    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
+    <!-- HEADER -->
     <header id="main-header">
       <div class="logo">
-        <img src="images/Logo.svg" alt="" />
+        <img src="images/Logo.svg" alt="Logo" />
       </div>
       <nav class="sidebar">
-        <a href="/"> Home </a>
-        <a href="/"> Works </a>
-        <a href="/"> About </a>
-        <a href="/"> Contact </a>
+        <a href="/">Home</a>
+        <a href="/">Works</a>
+        <a href="/">About</a>
+        <a href="/">Contact</a>
       </nav>
     </header>
 
-    <video id="bg-video" muted loop playsinline></video>
+    <!-- MOBILE MENU -->
+    <button class="mobile-menu-btn" id="menuBtn">
+      <i class="bi bi-list"></i>
+    </button>
 
+    <nav class="mobile-menu" id="mobileMenu">
+      <a href="/">Home</a>
+      <a href="/">Works</a>
+      <a href="/">About</a>
+      <a href="/">Contact</a>
+    </nav>
+
+    <!-- VIDEO -->
+    <div id="video-wrapper">
+      <video id="bg-video" muted loop playsinline></video>
+    </div>
+
+    <!-- LOADING -->
     <div id="loading-wrapper">
       <div id="lottie"></div>
+
+      <div id="lottieBg">
+        <div class="content">
+          <h1 class="title">We are</h1>
+          <p class="subText">
+            At the edge of now, we create what the world has never seen.
+          </p>
+        </div>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
-
-    <script>
-      const JST_OFFSET = 9 * 60;
-      function getJSTHour() {
-        const now = new Date();
-        const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-        return new Date(utc + JST_OFFSET * 60000).getHours();
-      }
-
-      function getCurrentBackground() {
-        const hour = getJSTHour();
-
-        if (hour >= 5 && hour < 8) return "morning";
-        if (hour >= 8 && hour < 17) return "noon";
-        if (hour >= 17 && hour < 19) return "evening";
-        return "night";
-      }
-
-      const VIDEO_PATH = {
-        morning: "public/video/Morning.mp4",
-        noon: "public/video/Noon.mp4",
-        evening: "public/video/Evening.mp4",
-        night: "public/video/Night.mp4",
-      };
-
-      const ANIMATION_LOADING = {
-        morning: "Morning-animation.json",
-        noon: "Noon-animation.json",
-        evening: "Evening-animation.json",
-        night: "Night-animation.json",
-      };
-
-      const currentBg = getCurrentBackground();
-
-      const video = document.getElementById("bg-video");
-      video.src = VIDEO_PATH[currentBg];
-      video.load();
-
-      video.addEventListener("canplaythrough", function onReady() {
-        video.removeEventListener("canplaythrough", onReady);
-        console.log("Video ready:", currentBg);
-      });
-
-      const animation = lottie.loadAnimation({
-        container: document.getElementById("lottie"),
-        renderer: "svg",
-        loop: false,
-        autoplay: true,
-        initialSegment: [0, 425],
-        path: ANIMATION_LOADING[currentBg],
-        rendererSettings: {
-          preserveAspectRatio: "xMidYMid slice",
-        },
-      });
-
-      animation.addEventListener("complete", () => {
-        setTimeout(() => {
-          video.play().catch((err) => {
-            console.warn("Autoplay blocked:", err);
-          });
-
-          const loadingWrapper = document.getElementById("loading-wrapper");
-        }, 300);
-      });
-
-      function showHeader() {
-        document.getElementById("main-header")?.classList.add("show");
-      }
-
-      animation.addEventListener("enterFrame", (e) => {
-        if (e.currentTime >= 13 * animation.frameRate) {
-          const loadingWrapper = document.getElementById("loading-wrapper");
-
-          loadingWrapper.style.backgroundColor = "transparent";
-          showHeader();
-        }
-      });
-    </script>
+    <script src="main.js"></script>
   </body>
 </html>
-
-å

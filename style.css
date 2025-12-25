@@ -1,0 +1,344 @@
+#bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+}
+
+#loading-wrapper {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9;
+  transition: opacity 0.8s ease;
+}
+
+#lottie {
+  width: 100vw;
+  height: 100vh;
+}
+
+video {
+  width: 100%;
+  height: auto;
+}
+
+#main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  z-index: 10;
+
+  opacity: 0;
+  pointer-events: none;
+  padding-top: 22px;
+
+  transform: translateY(-12px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+#main-header.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.sidebar {
+  flex-basis: 20%;
+  display: flex;
+  align-items: center;
+  padding-right: 22px;
+  justify-content: space-between;
+}
+
+.sidebar a {
+  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.sidebar a:hover {
+  opacity: 0.7;
+}
+.logo {
+  padding-left: 22px;
+}
+
+.logo image{
+    width: 80%;
+}
+.content-background {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  pointer-events: none;
+}
+
+.content-background img {
+  max-width: 90vw;
+  height: auto;
+}
+
+#lottie,
+#lottieBg {
+  position: absolute;
+  inset: 0;
+}
+
+#lottie {
+  z-index: 1;
+}
+
+#lottieBg {
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 164px;
+
+  transform: translateY(120px);
+  opacity: 0;
+  padding: 22px;
+
+  transition: transform 1s ease-out, opacity 1s ease-out;
+}
+
+.content.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.title {
+  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+  font-weight: 700;
+  font-size: 79px;
+  line-height: 100%;
+  color: #ffffff;
+}
+
+.subText {
+  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 35px;
+  text-align: center;
+  color: #ffffff;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+      .sidebar {
+    display: none;
+  }
+
+  .title {
+    font-size: 40px !important;
+  }
+
+  .subText {
+    font-size: 20px !important;
+  }
+
+  #loading-wrapper .content {
+    gap: 125px !important;
+  }
+
+
+}
+
+@media (max-width: 768px) {
+    .title {
+    font-size: 25px;
+  }
+
+  .subText {
+    font-size: 10px;
+    line-height: 62px;
+  }
+
+  #loading-wrapper .content {
+    gap: 50px;
+  }
+
+  .logo img{
+    width: 80%;
+  }
+
+
+
+}
+
+@media (min-width: 550px) and (max-width: 767px) {
+
+  #loading-wrapper .content {
+    gap: 110px;
+  }
+
+   .title {
+    font-size: 35px;
+  }
+
+  .subText {
+    font-size: 16px;
+  }
+
+
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+
+  
+
+  #lottieBg svg {
+    margin-bottom: 60px;
+    transform: scale(1.5) !important;
+  }
+
+  .mobile-menu-btn {
+    position: fixed;
+    top: 22px;
+    right: 22px;
+    z-index: 20;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 28px;
+    opacity: 0;
+    cursor: pointer;
+
+    transition: transform 0.4s ease;
+      transform: translateY(-12px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .mobile-menu-btn.show{
+  opacity: 1;
+      transform: translateY(0);
+
+  }
+
+  .mobile-menu-btn.active {
+    transform: rotate(180deg) scale(0.8);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .mobile-menu.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu a {
+    font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+
+    transform: translateX(250px);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+
+  .mobile-menu.show a {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  /* STAGGER EFFECT */
+  .mobile-menu.show a:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+  .mobile-menu.show a:nth-child(2) {
+    transition-delay: 0.2s;
+  }
+  .mobile-menu.show a:nth-child(3) {
+    transition-delay: 0.3s;
+  }
+  .mobile-menu.show a:nth-child(4) {
+    transition-delay: 0.4s;
+  }
+
+  #video-wrapper {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  #bg-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+        transform: translateX(-730px);
+    width: 300vw;
+
+
+    /* transform: translateX(0); */
+  }
+
+  #bg-video.move {
+    /* animation: panVideo 60s linear infinite; */
+  }
+
+  @keyframes panVideo {
+    0% {
+      transform: translateX(-100vw);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+
+ 
+
+}
