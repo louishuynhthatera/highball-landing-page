@@ -310,7 +310,7 @@ video {
   }
 
   #bg-video.move {
-    animation: panVideo 120s linear infinite;
+    animation: panVideo 60s linear infinite;
   }
 
   @keyframes panVideo {
