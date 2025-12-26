@@ -30,13 +30,14 @@ const VIDEO_PATH = {
 };
 
 const ANIMATION_LOADING = {
-  morning: "Morning-animation.json",
-  noon: "Noon-animation.json",
-  evening: "Evening-animation.json",
-  night: "Night-animation.json",
+  morning: "Morning.json",
+  noon: "Noon.json",
+  evening: "Evening.json",
+  night: "Night.json",
 };
 
 const ENTER_FRAME_TRIGGER = 378;
+const ENTER_FRAME_TRIGGER_SCALE = 378;
 const INITIAL_SEGMENT = [0, 398];
 
 /* =========================
@@ -81,11 +82,15 @@ const playLogoAnimation = () => {
     renderer: "svg",
     loop: false,
     autoplay: true,
-    path: "logo-animation.json",
+    path: "Logo.json",
   });
 };
 
 const onEnterFrame = (e) => {
+  if (e.currentTime >= ENTER_FRAME_TRIGGER_SCALE) {
+    spinner.style.transform = "scale(1)";
+  }
+
   if (e.currentTime >= ENTER_FRAME_TRIGGER) {
     animSpinner.removeEventListener("enterFrame", onEnterFrame);
     document.querySelector(".content")?.classList.add("show");
