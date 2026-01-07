@@ -13,17 +13,17 @@
     <link rel="stylesheet" href="style.css" />
   </head>
 
-  <body>
+  <body >
     <!-- HEADER -->
     <header id="main-header">
       <div class="logo">
         <img src="images/Logo.svg" alt="Logo" />
       </div>
       <nav class="sidebar">
-        <a href="/">Home</a>
-        <a href="/">Works</a>
-        <a href="/">About</a>
-        <a href="/">Contact</a>
+        <a href="#" id="home-btn">Home</a>
+        <a href="#" id="works-btn">Works</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
       </nav>
     </header>
 
@@ -33,23 +33,96 @@
     </button>
 
     <nav class="mobile-menu" id="mobileMenu">
-      <a href="/">Home</a>
-      <a href="/">Works</a>
-      <a href="/">About</a>
-      <a href="/">Contact</a>
+      <a href="#" id="home-btn-mobile">Home</a>
+      <a href="#"  id="works-btn-mobile">Works</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
     </nav>
 
     <!-- VIDEO -->
     <div id="video-wrapper">
+      <!-- <div id="pixel-overlay"></div> -->
+       <div id="mobile-overlay-blur"></div>
+      <canvas id="pixel-canvas"></canvas>
       <video id="bg-video" muted loop playsinline></video>
+    </div>
+
+    <div id="works-page">
+
+      <div class="works-content">
+
+         <div class="intro">
+        
+<img class="intro-logo" src="images/Group 1011.svg" alt="Logo" />
+      
+
+        <p id="typing-text" class="typing-text"></p>
+
+      </div>
+
+      <div class="works-row">
+        <div class="work-item">
+          <video autoplay muted loop>
+            <!-- <source src="public/video/Tayducode.mp4" /> -->
+          </video>
+        </div>
+        <div class="work-item">
+          <video autoplay muted loop>
+            <!-- <source src="public/video/Tayducode.mp4" /> -->
+          </video>
+        </div>
+        <div class="work-item">
+          <video autoplay muted loop>
+            <!-- <source src="public/video/Tayducode.mp4" /> -->
+          </video>
+        </div>
+        <div class="work-item">
+          <video autoplay muted loop>
+            <!-- <source src="public/video/Tayducode.mp4" /> -->
+          </video>
+        </div>
+      </div>
+
+      <div class="works-row">
+        <div class="work-item">
+          <video autoplay muted loop>
+            <!-- <source src="public/video/Tayducode.mp4" /> -->
+          </video>
+        </div>
+        <div class="work-item">
+          <video autoplay muted loop>
+            <!-- <source src="public/video/Tayducode.mp4" /> -->
+          </video>
+        </div>
+        <div class="work-item">
+          <video autoplay muted loop>
+            <!-- <source src="public/video/Tayducode.mp4" /> -->
+          </video>
+        </div>
+        <div class="work-item">
+          <video autoplay muted loop>
+            <!-- <source src="public/video/Tayducode.mp4" /> -->
+          </video>
+        </div>
+      </div>
+      </div>
+     
     </div>
 
     <!-- LOADING -->
     <div id="loading-wrapper">
       <div id="lottie"></div>
+      <div id="lottieBg"></div>
+      <div id="lottie-works"></div>
+      <div id="lottie-suwa"></div>
+      <div id="overlay"></div>
+    </div>
 
-      <div id="lottieBg">
-      </div>
+    <div id="effect-explosion">
+      <video id="effect-explosion-video" muted playsinline preload="auto" webkit-playsinline>
+        <source src="Eff_Explosion_01.mov" type="video/quicktime" />
+        <source src="Eff_Explosion_01.webm" type="video/webm" />
+      </video>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
