@@ -30,7 +30,7 @@
   letter-spacing: 2.1%;
   color: #ffffff;
 
-  width: 70%;
+  /* width: 70%; */
   white-space: normal;
   word-break: break-word;
   overflow-wrap: break-word;
@@ -158,6 +158,7 @@
   width: 100vw;
   height: 100vh;
   image-rendering: pixelated;
+  
   /* clip-path: circle(0% at 50% 50%); */
   /* transition: clip-path 1s cubic-bezier(0.55, 0.02, 0.02, 1); */
 }
@@ -192,6 +193,7 @@
   height: 100vh;
   object-fit: cover;
   z-index: 1;
+  clip-path: circle(0% at 50% 50%);
   /* -webkit-clip-path: circle(0% at 50% 50%);
           clip-path: circle(0% at 50% 50%);
 
@@ -201,9 +203,10 @@
 }
 
 #loading-wrapper {
+   pointer-events: none;
   position: fixed;
   inset: 0;
-  /* background: #000; */
+  background: #000;
   display: flex;
   justify-content: center;
   align-items: center;

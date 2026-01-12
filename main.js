@@ -1,37 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
   const worksData = [
     {
-      link: "",
-      source: "",
+      link: "https://swipedrama.com/watch/the-slap/?from=Search&keyword=%E3%82%B6%E3%83%BB%E3%82%B9%E3%83%A9%E3%83%83%E3%83%97&episode=1",
+      source: "public/video/slap_1.mp4",
     },
     {
-      link: "",
-      source: "",
+      link: "https://swipedrama.com/ja/watch/arubaito-ha-ojousama/?from=Search&keyword=%E3%82%A2%E3%83%AB%E3%83%90%E3%82%A4%E3%83%88%E3%81%AF%E3%81%8A%E5%AC%A2%E6%A7%98%EF%BC%81&episode=4",
+      source: "public/video/3_kan.mp4",
     },
     {
-      link: "",
-      source: "",
+      link: "https://swipedrama.com/ja/watch/fukusyupapa/?from=Search&keyword=%E5%BE%A9%E8%AE%90%E3%83%91%E3%83%91&episode=1",
+      source: "public/video/papa_fukusyu_01.mp4",
     },
     {
-      link: "",
-      source: "",
+      link: "https://swipedrama.com/ja/watch/fukusyupapa/?from=Search&keyword=%E5%BE%A9%E8%AE%90%E3%83%91%E3%83%91&episode=3",
+      source: "public/video/papa_fukusyu_03.mp4",
     },
 
     {
-      link: "",
-      source: "",
+      link: "https://swipedrama.com/ja/watch/fukusyupapa/?from=Search&keyword=%E5%BE%A9%E8%AE%90%E3%83%91%E3%83%91&episode=5",
+      source: "public/video/papa_fukusyu_05.mp4",
     },
     {
-      link: "",
-      source: "",
+      link: "https://swipedrama.com/ja/watch/fukusyupapa/?from=Search&keyword=%E5%BE%A9%E8%AE%90%E3%83%91%E3%83%91&episode=6",
+      source: "public/video/papa_fukusyu_06.mp4",
     },
     {
-      link: "",
-      source: "",
+      link: "https://swipedrama.com/ja/watch/fukusyupapa/?from=Search&keyword=%E5%BE%A9%E8%AE%90%E3%83%91%E3%83%91&episode=7",
+      source: "public/video/papa_fukusyu_07.mp4",
     },
     {
-      link: "",
-      source: "",
+      link: "https://swipedrama.com/watch/saijaku-muhai-no-tenkousei/?from=Search&keyword=+%E6%9C%80%E5%BC%B1%E7%84%A1%E6%95%97%E3%81%AE%E8%BB%A2%E6%A0%A1%E7%94%9F&episode=7",
+      source: "public/video/saijakumuhai_7.mp4",
     },
   ];
 
@@ -86,10 +86,10 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================= */
 
   const VIDEO_PATH = {
-    morning: "public/video/Morning.mp4",
-    noon: "public/video/Noon.mp4",
-    evening: "public/video/Evening.mp4",
-    night: "public/video/Night.mp4",
+    morning: "public/background/Morning.mp4",
+    noon: "public/background/Noon.mp4",
+    evening: "public/background/Evening.mp4",
+    night: "public/background/Night.mp4",
   };
 
   const ANIMATION_LOADING = {
@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const mobileOverlayBlur = document.getElementById("mobile-overlay-blur");
   const canvas = document.getElementById("pixel-canvas");
   const loadingWrapper = document.getElementById("loading-wrapper");
+  const isMobile = window.matchMedia("(max-width: 1024px)").matches;
 
   let isMenuOpen = false;
   let pixelZoomStarted = false;
@@ -198,19 +199,34 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector(".content")?.classList.add("show");
       playLogoHighBallAnimation();
     }
-
-    video.style.opacity = "0";
+    if (!isMobile) {
+      video.style.opacity = "0";
+    }
 
     if (e.currentTime >= 358 && !pixelZoomStarted) {
-      pixelZoomStarted = true;
+      loadingWrapper.style.background = "transparent";
 
-      runPixelZoomEffect({
-        duration: 1500,
-        pixelFrom: 100,
-        pixelTo: 2,
-        radiusFrom: 2,
-        radiusTo: 130,
-      });
+      pixelZoomStarted = true;
+      console.log("isMobile", isMobile);
+      if (isMobile) {
+        runZoomMaskEffect({
+          duration: 1500,
+          pixelFrom: 100,
+          pixelTo: 2,
+          radiusFrom: 2,
+          radiusTo: 130,
+        });
+      }
+      if (!isMobile) {
+        //  video.style.clipPath = "unset"
+        runPixelZoomEffect({
+          duration: 1500,
+          pixelFrom: 100,
+          pixelTo: 2,
+          radiusFrom: 2,
+          radiusTo: 130,
+        });
+      }
     }
   };
 
@@ -234,16 +250,16 @@ document.addEventListener("DOMContentLoaded", () => {
       let pixelSize;
 
       if (t < 0.4) {
-        // ===== PHASE 1: 0 → 40% =====
-        const p = t / 0.4; // normalize 0–1
-        const eased = Math.pow(p, 1.2);
+        const p = t / 0.4;
 
-        radius = radiusFrom + (radiusMid - radiusFrom) * eased;
-        pixelSize = pixelFrom + (pixelTo - pixelFrom) * eased * 0.3;
+        const eased = Math.pow(p, 4.5);
+
+        radius = 0.1 + (40 - 0.1) * eased;
+
+        pixelSize = pixelFrom;
       } else {
-        // ===== PHASE 2: 40% → 100% =====
-        const p = (t - 0.4) / 0.6; // normalize 0–1
-        const eased = 1 - Math.pow(1 - p, 3.5); // punch zoom
+        const p = (t - 0.4) / 0.6;
+        const eased = 1 - Math.pow(1 - p, 3.5);
 
         radius = radiusMid + (radiusTo - radiusMid) * eased;
         pixelSize = pixelFrom * 0.7 + (pixelTo - pixelFrom * 0.7) * eased;
@@ -257,6 +273,44 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       canvas.style.clipPath = `circle(${radius}% at 50% 50%)`;
+      video.style.clipPath = `circle(${radius}% at 50% 50%)`;
+      if (t < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        video.style.opacity = "1";
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  function runZoomMaskEffect({
+    duration = 900,
+    radiusMid = 40,
+    radiusTo = 130,
+  }) {
+    const start = performance.now();
+
+    function animate(now) {
+      const t = Math.min((now - start) / duration, 1);
+
+      let radius;
+
+      if (t < 0.4) {
+        const p = t / 0.4;
+
+        const eased = Math.pow(p, 4.5);
+
+        radius = 0.1 + (40 - 0.1) * eased;
+
+      } else {
+        const p = (t - 0.4) / 0.6;
+        const eased = 1 - Math.pow(1 - p, 3.5);
+
+        radius = radiusMid + (radiusTo - radiusMid) * eased;
+      }
+
+      video.style.clipPath = `circle(${radius}% at 50% 50%)`;
 
       if (t < 1) {
         requestAnimationFrame(animate);
@@ -283,12 +337,12 @@ document.addEventListener("DOMContentLoaded", () => {
     destroyAnim(Anim.spinner);
 
     setTimeout(() => {
-      video.play().catch(() => {});
+      // video.play().catch(() => {});
     }, 300);
 
     loadingWrapper?.style.setProperty("background-color", "transparent");
 
-    video.classList.add("move");
+    // video.classList.add("move");
     showHeader();
   });
 
@@ -349,7 +403,8 @@ document.addEventListener("DOMContentLoaded", () => {
     resetWorksPageUI();
     currentPage = "works";
 
-    canvas.style.opacity = "1";
+    // canvas.style.opacity = "1";
+    // canvas.style.display = "mn";
     destroyAnim(Anim.works);
 
     const options = {
@@ -413,12 +468,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     wrapper.style.opacity = "1";
     videoFx.currentTime = 0;
-    videoFx.play().catch(() => {});
+    videoFx.play().catch(() => { });
     overlay.classList.add("fade-out");
 
     videoFx.onended = () => {
       wrapper.style.opacity = "0";
-      loadingWrapper.style.display = "none";
+      // loadingWrapper.style.display = "none";
       showWorksPage();
       showLogo();
       typeChar();
@@ -457,19 +512,31 @@ document.addEventListener("DOMContentLoaded", () => {
     logo.classList.add("show");
   }
 
-  const textEl = document.getElementById("typing-text");
-  const text = textEl.textContent.replace(/\n\s+/g, "\n").trimStart();
+ const textEl = document.getElementById("typing-text");
+const text = `SWIPEDRAMA brings you bite-sized vertical dramas perfect for filling spare moments.
+With episodes lasting just 1 minute, immerse yourself instantly in exciting stories about
+romance, revenge, horror, and thrilling relationships.`;
 
-  function typeChar() {
-    textEl.textContent = "";
+function typeChar() {
+  textEl.textContent = "";
 
-    [...text].forEach((char, i) => {
-      const span = document.createElement("span");
-      span.textContent = char === " " ? "\u00A0" : char;
-      span.style.animationDelay = `${i * 25}ms`;
-      textEl.appendChild(span);
-    });
-  }
+  let delayIndex = 0;
+
+  [...text].forEach((char) => {
+    if (char === "\n") {
+      textEl.appendChild(document.createElement("br"));
+      return;
+    }
+
+    const span = document.createElement("span");
+    span.textContent = char === " " ? "\u00A0" : char;
+    span.style.animationDelay = `${delayIndex * 25}ms`;
+    delayIndex++;
+
+    textEl.appendChild(span);
+  });
+}
+
 
   const navigateTo = (page, { isMobile = false } = {}) => {
     if (isTransitioning) return;
@@ -498,7 +565,7 @@ document.addEventListener("DOMContentLoaded", () => {
     overlay.classList.remove("fade-out");
 
     worksPage.classList.remove("show");
-    canvas.style.opacity = "0";
+    // canvas.style.opacity = "0";
 
     video.style.opacity = "1";
     logoLoading.style.display = "block";
@@ -541,12 +608,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   homeBtn.addEventListener("click", () => {
     navigateTo("home");
-    loadingWrapper.style.display = "block";
+    // loadingWrapper.style.display = "block";
   });
 
   homeMobileBtn.addEventListener("click", () => {
     navigateTo("home");
-    loadingWrapper.style.display = "block";
+    // loadingWrapper.style.display = "block";
 
     menuBtn.click();
   });
