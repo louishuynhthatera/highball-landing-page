@@ -50,6 +50,23 @@ document.addEventListener("DOMContentLoaded", () => {
       link: "https://swipedrama.com/ja/watch/kyoiku-mama-saeko/?from=Search&keyword=%E7%8B%82%E8%82%B2%E3%83%9E%E3%83%9E%E3%83%BB%E3%82%B5%E3%82%A8%E3%82%B3&episode=1",
       source: "public/video/HP_狂育ママ・サエコ.mp4",
     },
+
+    {
+      link: "https://swipedrama.com/ja/watch/nurarihyon-no-sumu-ie/?from=Search&keyword=%E3%81%AC%E3%82%89%E3%82%8A%E3%81%B2%E3%82%87%E3%82%93%E3%81%AE%E6%A3%B2%E3%82%80%E5%AE%B6&episode=1",
+      source: "public/video/HP_ぬらりひょんの棲む家.mp4",
+    },
+    {
+      link: "https://swipedrama.com/ja/watch/you-are-my-present/?from=Search&keyword=%E5%90%9B%E3%81%AF%E5%83%95&episode=1",
+      source: "public/video/HP_君は僕のプレゼント.mp4",
+    },
+    {
+      link: "https://swipedrama.com/ja/watch/saijaku-muhai-no-tenkousei/?from=Search&episode=1",
+      source: "public/video/HP_最弱無敗の転校生.mp4",
+    },
+    {
+      link: "https://swipedrama.com/ja/watch/kyoiku-mama-saeko/?from=Search&keyword=%E7%8B%82%E8%82%B2%E3%83%9E%E3%83%9E%E3%83%BB%E3%82%B5%E3%82%A8%E3%82%B3&episode=1",
+      source: "public/video/HP_狂育ママ・サエコ.mp4",
+    },
   ];
 
   function renderWorks(items, perRow = 4) {
@@ -419,8 +436,6 @@ document.addEventListener("DOMContentLoaded", () => {
     resetWorksPageUI();
     currentPage = "works";
 
-    // canvas.style.opacity = "1";
-    // canvas.style.display = "mn";
     destroyAnim(Anim.works);
 
     const options = {
@@ -501,27 +516,33 @@ document.addEventListener("DOMContentLoaded", () => {
   /* =====================================================
    WORKS PAGE UI
   ===================================================== */
+
+  function setupWorksScrollAnimation() {
+    const rows = document.querySelectorAll(".works-row");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+      }
+    );
+
+    rows.forEach((row) => observer.observe(row));
+  }
   const showWorksPage = () => {
     worksPage.classList.add("show");
 
-    [...worksPageRows[0].children].forEach(
-      (el) => (el.style.transform = "translateX(0)")
-    );
-
-    setTimeout(() => {
-      animateRows();
-      [...worksPageRows[1].children].forEach(
-        (el) => (el.style.transform = "translateX(0)")
-      );
-    }, 3000);
-  };
-
-  function animateRows() {
-    worksPageRows.forEach((row) => {
-      const height = row.offsetHeight;
-      row.style.transform = `translateY(-${height}px)`;
+    requestAnimationFrame(() => {
+      setupWorksScrollAnimation();
     });
-  }
+  };
 
   function showLogo() {
     const logo = document.querySelector(".intro-logo");
@@ -580,7 +601,6 @@ romance, revenge, horror, and thrilling relationships.`;
     overlay.classList.remove("fade-out");
 
     worksPage.classList.remove("show");
-    // canvas.style.opacity = "0";
 
     video.style.opacity = "1";
     logoLoading.style.display = "block";
@@ -588,17 +608,19 @@ romance, revenge, horror, and thrilling relationships.`;
     isTransitioning = false;
   };
 
+  function resetWorksScroll() {
+    const worksContent = document.querySelector(".works-content");
+    if (worksContent) {
+      worksContent.scrollTop = 0;
+    }
+  }
+
   const resetWorksPageUI = () => {
     worksPage.classList.remove("show");
+    resetWorksScroll();
 
     worksPageRows.forEach((row) => {
-      row.style.transform = "";
-    });
-
-    worksPageRows.forEach((row) => {
-      [...row.children].forEach((el) => {
-        el.style.transform = "";
-      });
+      row.classList.remove("is-visible");
     });
 
     // reset typing text
@@ -623,12 +645,10 @@ romance, revenge, horror, and thrilling relationships.`;
 
   homeBtn.addEventListener("click", () => {
     navigateTo("home");
-    // loadingWrapper.style.display = "block";
   });
 
   homeMobileBtn.addEventListener("click", () => {
     navigateTo("home");
-    // loadingWrapper.style.display = "block";
     mobileOverlayBlur.style.display = "none";
 
     menuBtn.click();
