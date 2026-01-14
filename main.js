@@ -1,37 +1,54 @@
 document.addEventListener("DOMContentLoaded", () => {
   const worksData = [
     {
-      link: "https://swipedrama.com/watch/the-slap/?from=Search&keyword=%E3%82%B6%E3%83%BB%E3%82%B9%E3%83%A9%E3%83%83%E3%83%97&episode=1",
-      source: "public/video/slap_1.mp4",
+      link: "https://swipedrama.com/ja/watch/the-slap/?from=Search&keyword=%E3%83%BB%E3%82%B9%E3%83%A9%E3%83%83%E3%83%97&episode=1",
+      source: "public/video/HP_ザ・スラップ.mp4",
     },
     {
-      link: "https://swipedrama.com/ja/watch/arubaito-ha-ojousama/?from=Search&keyword=%E3%82%A2%E3%83%AB%E3%83%90%E3%82%A4%E3%83%88%E3%81%AF%E3%81%8A%E5%AC%A2%E6%A7%98%EF%BC%81&episode=4",
-      source: "public/video/3_kan.mp4",
+      link: "https://swipedrama.com/ja/watch/505-yakusoku/?from=Search&keyword=%E3%81%AE%E7%B4%84%E6%9D%9F&episode=1",
+      source: "public/video/HP_505の約束.mp4",
     },
     {
-      link: "https://swipedrama.com/ja/watch/fukusyupapa/?from=Search&keyword=%E5%BE%A9%E8%AE%90%E3%83%91%E3%83%91&episode=1",
-      source: "public/video/papa_fukusyu_01.mp4",
+      link: "https://swipedrama.com/ja/watch/fukusyupapa/?from=Search&keyword=_%E5%BE%A9%E8%AE%90%E3%83%91%E3%83%91&episode=1",
+      source: "public/video/HP_復讐パパ.mp4",
     },
     {
-      link: "https://swipedrama.com/ja/watch/fukusyupapa/?from=Search&keyword=%E5%BE%A9%E8%AE%90%E3%83%91%E3%83%91&episode=3",
-      source: "public/video/papa_fukusyu_03.mp4",
+      link: "https://swipedrama.com/ja/watch/10000-iine-karada/?from=Search&keyword=%E3%81%84%E3%81%84%E3%81%AD&episode=1",
+      source: "public/video/HP_10000いいね.mp4",
     },
 
     {
-      link: "https://swipedrama.com/ja/watch/fukusyupapa/?from=Search&keyword=%E5%BE%A9%E8%AE%90%E3%83%91%E3%83%91&episode=5",
-      source: "public/video/papa_fukusyu_05.mp4",
+      link: "https://swipedrama.com/ja/watch/nurarihyon-no-sumu-ie/?from=Search&keyword=%E3%81%AC%E3%82%89%E3%82%8A%E3%81%B2%E3%82%87%E3%82%93%E3%81%AE%E6%A3%B2%E3%82%80%E5%AE%B6&episode=1",
+      source: "public/video/HP_ぬらりひょんの棲む家.mp4",
     },
     {
-      link: "https://swipedrama.com/ja/watch/fukusyupapa/?from=Search&keyword=%E5%BE%A9%E8%AE%90%E3%83%91%E3%83%91&episode=6",
-      source: "public/video/papa_fukusyu_06.mp4",
+      link: "https://swipedrama.com/ja/watch/you-are-my-present/?from=Search&keyword=%E5%90%9B%E3%81%AF%E5%83%95&episode=1",
+      source: "public/video/HP_君は僕のプレゼント.mp4",
     },
     {
-      link: "https://swipedrama.com/ja/watch/fukusyupapa/?from=Search&keyword=%E5%BE%A9%E8%AE%90%E3%83%91%E3%83%91&episode=7",
-      source: "public/video/papa_fukusyu_07.mp4",
+      link: "https://swipedrama.com/ja/watch/saijaku-muhai-no-tenkousei/?from=Search&episode=1",
+      source: "public/video/HP_最弱無敗の転校生.mp4",
     },
     {
-      link: "https://swipedrama.com/watch/saijaku-muhai-no-tenkousei/?from=Search&keyword=+%E6%9C%80%E5%BC%B1%E7%84%A1%E6%95%97%E3%81%AE%E8%BB%A2%E6%A0%A1%E7%94%9F&episode=7",
-      source: "public/video/saijakumuhai_7.mp4",
+      link: "https://swipedrama.com/ja/watch/kyoiku-mama-saeko/?from=Search&keyword=%E7%8B%82%E8%82%B2%E3%83%9E%E3%83%9E%E3%83%BB%E3%82%B5%E3%82%A8%E3%82%B3&episode=1",
+      source: "public/video/HP_狂育ママ・サエコ.mp4",
+    },
+
+    {
+      link: "https://swipedrama.com/ja/watch/nurarihyon-no-sumu-ie/?from=Search&keyword=%E3%81%AC%E3%82%89%E3%82%8A%E3%81%B2%E3%82%87%E3%82%93%E3%81%AE%E6%A3%B2%E3%82%80%E5%AE%B6&episode=1",
+      source: "public/video/HP_ぬらりひょんの棲む家.mp4",
+    },
+    {
+      link: "https://swipedrama.com/ja/watch/you-are-my-present/?from=Search&keyword=%E5%90%9B%E3%81%AF%E5%83%95&episode=1",
+      source: "public/video/HP_君は僕のプレゼント.mp4",
+    },
+    {
+      link: "https://swipedrama.com/ja/watch/saijaku-muhai-no-tenkousei/?from=Search&episode=1",
+      source: "public/video/HP_最弱無敗の転校生.mp4",
+    },
+    {
+      link: "https://swipedrama.com/ja/watch/kyoiku-mama-saeko/?from=Search&keyword=%E7%8B%82%E8%82%B2%E3%83%9E%E3%83%9E%E3%83%BB%E3%82%B5%E3%82%A8%E3%82%B3&episode=1",
+      source: "public/video/HP_狂育ママ・サエコ.mp4",
     },
   ];
 
@@ -302,7 +319,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const eased = Math.pow(p, 4.5);
 
         radius = 0.1 + (40 - 0.1) * eased;
-
       } else {
         const p = (t - 0.4) / 0.6;
         const eased = 1 - Math.pow(1 - p, 3.5);
@@ -468,7 +484,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     wrapper.style.opacity = "1";
     videoFx.currentTime = 0;
-    videoFx.play().catch(() => { });
+    videoFx.play().catch(() => {});
     overlay.classList.add("fade-out");
 
     videoFx.onended = () => {
@@ -512,31 +528,30 @@ document.addEventListener("DOMContentLoaded", () => {
     logo.classList.add("show");
   }
 
- const textEl = document.getElementById("typing-text");
-const text = `SWIPEDRAMA brings you bite-sized vertical dramas perfect for filling spare moments.
+  const textEl = document.getElementById("typing-text");
+  const text = `SWIPEDRAMA brings you bite-sized vertical dramas perfect for filling spare moments.
 With episodes lasting just 1 minute, immerse yourself instantly in exciting stories about
 romance, revenge, horror, and thrilling relationships.`;
 
-function typeChar() {
-  textEl.textContent = "";
+  function typeChar() {
+    textEl.textContent = "";
 
-  let delayIndex = 0;
+    let delayIndex = 0;
 
-  [...text].forEach((char) => {
-    if (char === "\n") {
-      textEl.appendChild(document.createElement("br"));
-      return;
-    }
+    [...text].forEach((char) => {
+      if (char === "\n") {
+        textEl.appendChild(document.createElement("br"));
+        return;
+      }
 
-    const span = document.createElement("span");
-    span.textContent = char === " " ? "\u00A0" : char;
-    span.style.animationDelay = `${delayIndex * 25}ms`;
-    delayIndex++;
+      const span = document.createElement("span");
+      span.textContent = char === " " ? "\u00A0" : char;
+      span.style.animationDelay = `${delayIndex * 25}ms`;
+      delayIndex++;
 
-    textEl.appendChild(span);
-  });
-}
-
+      textEl.appendChild(span);
+    });
+  }
 
   const navigateTo = (page, { isMobile = false } = {}) => {
     if (isTransitioning) return;
@@ -614,6 +629,7 @@ function typeChar() {
   homeMobileBtn.addEventListener("click", () => {
     navigateTo("home");
     // loadingWrapper.style.display = "block";
+    mobileOverlayBlur.style.display = "none";
 
     menuBtn.click();
   });
