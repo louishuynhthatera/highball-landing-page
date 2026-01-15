@@ -39,16 +39,24 @@ body {
   overflow-wrap: break-word;
 }
 
-.typing-text span {
-  opacity: 0;
-  display: inline-block;
-  animation: revealChar 0.3s ease-out forwards;
+#typing-text {
+  white-space: normal;
+  word-wrap: break-word;
 }
 
-@keyframes revealChar {
+#typing-text span {
+  opacity: 0;
+  display: inline;
+}
+
+#typing-text.typing-active span {
+  animation: fadeIn 0.1s forwards;
+  animation-delay: calc(var(--d) * 25ms);
+}
+
+@keyframes fadeIn {
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
@@ -75,12 +83,10 @@ body {
   gap: 8px;
   transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
   margin-bottom: 10px;
-  transform: translateY(40px);
   opacity: 0;
 }
 
 .works-row.is-visible {
-  transform: translateY(0);
   opacity: 1;
 }
 
@@ -91,6 +97,7 @@ body {
 .works-content {
   padding: 20vh 10px 10px 10px;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .work-item {
@@ -117,7 +124,6 @@ body {
   height: 100%;
   object-fit: cover;
 }
-
 
 #overlay {
   position: fixed;

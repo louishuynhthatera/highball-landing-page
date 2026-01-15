@@ -73,6 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("works-list");
     container.innerHTML = "";
 
+    const fragment = document.createDocumentFragment();
+
     for (let i = 0; i < items.length; i += perRow) {
       const row = document.createElement("div");
       row.className = "works-row";
@@ -85,19 +87,17 @@ document.addEventListener("DOMContentLoaded", () => {
         el.rel = "noopener";
 
         el.innerHTML = `
-       <video autoplay muted loop>
-            <source src="${item?.source}" /> 
-          </video>
+        <video muted loop playsinline preload="none" data-src="${item.source}"></video>
       `;
 
         row.appendChild(el);
       });
 
-      container.appendChild(row);
+      fragment.appendChild(row);
     }
-  }
 
-  renderWorks(worksData);
+    container.appendChild(fragment);
+  }
 
   const JST_OFFSET = 9 * 60;
 
@@ -124,13 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
     noon: "public/background/Noon.mp4",
     evening: "public/background/Evening.mp4",
     night: "public/background/Night.mp4",
-  };
-
-  const ANIMATION_LOADING = {
-    morning: "Morning.json",
-    noon: "Noon.json",
-    evening: "Evening.json",
-    night: "Night.json",
   };
 
   const ENTER_FRAME_TRIGGER = 378;
@@ -241,7 +234,6 @@ document.addEventListener("DOMContentLoaded", () => {
       loadingWrapper.style.background = "transparent";
 
       pixelZoomStarted = true;
-      console.log("isMobile", isMobile);
       if (isMobile) {
         runZoomMaskEffect({
           duration: 1500,
@@ -250,9 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
           radiusFrom: 2,
           radiusTo: 130,
         });
-      }
-      if (!isMobile) {
-        //  video.style.clipPath = "unset"
+      } else {
         runPixelZoomEffect({
           duration: 1500,
           pixelFrom: 100,
@@ -370,12 +360,12 @@ document.addEventListener("DOMContentLoaded", () => {
     destroyAnim(Anim.spinner);
 
     setTimeout(() => {
-      // video.play().catch(() => {});
+      video.play().catch(() => {});
     }, 300);
 
     loadingWrapper?.style.setProperty("background-color", "transparent");
 
-    // video.classList.add("move");
+    video.classList.add("move");
     showHeader();
   });
 
@@ -435,7 +425,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const startWorksPage = ({ isMobile }) => {
     resetWorksPageUI();
     currentPage = "works";
-
     destroyAnim(Anim.works);
 
     const options = {
@@ -467,11 +456,11 @@ document.addEventListener("DOMContentLoaded", () => {
     Anim.works.addEventListener("complete", () => {
       destroyAnim(Anim.works);
       startSuwa({ isMobile });
+      canvas.style.display = "none";
     });
   };
 
   const startSuwa = ({ isMobile }) => {
-    console.log("ismobile", isMobile);
     destroyAnim(Anim.suwa);
 
     Anim.suwa = loadLottie({
@@ -501,22 +490,29 @@ document.addEventListener("DOMContentLoaded", () => {
     videoFx.currentTime = 0;
     videoFx.play().catch(() => {});
     overlay.classList.add("fade-out");
-
-    videoFx.onended = () => {
+    setTimeout(() => {
       wrapper.style.opacity = "0";
-      // loadingWrapper.style.display = "none";
+
       showWorksPage();
       showLogo();
       typeChar();
 
       isTransitioning = false;
-    };
+    }, 500);
+    // videoFx.onended = () => {
+    //    wrapper.style.opacity = "0";
+
+    //   showWorksPage();
+    //   showLogo();
+    //   typeChar();
+
+    //   isTransitioning = false;
+    // };
   };
 
   /* =====================================================
    WORKS PAGE UI
   ===================================================== */
-
   function setupWorksScrollAnimation() {
     const rows = document.querySelectorAll(".works-row");
 
@@ -536,10 +532,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     rows.forEach((row) => observer.observe(row));
   }
+
+  function setupVideoLazyLoad() {
+    const videos = document.querySelectorAll("video[data-src]");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target;
+
+          if (entry.isIntersecting) {
+            if (!video.src) {
+              video.src = video.dataset.src;
+              video.load();
+            }
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      {
+        rootMargin: "200px",
+        threshold: 0.25,
+      }
+    );
+
+    videos.forEach((v) => observer.observe(v));
+  }
+
   const showWorksPage = () => {
     worksPage.classList.add("show");
+    renderWorks(worksData);
 
     requestAnimationFrame(() => {
+      setupVideoLazyLoad();
       setupWorksScrollAnimation();
     });
   };
@@ -548,29 +575,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const logo = document.querySelector(".intro-logo");
     logo.classList.add("show");
   }
-
   const textEl = document.getElementById("typing-text");
   const text = `SWIPEDRAMA brings you bite-sized vertical dramas perfect for filling spare moments.
 With episodes lasting just 1 minute, immerse yourself instantly in exciting stories about
 romance, revenge, horror, and thrilling relationships.`;
 
   function typeChar() {
-    textEl.textContent = "";
-
+    const fragment = document.createDocumentFragment();
     let delayIndex = 0;
+
+    const spans = [];
 
     [...text].forEach((char) => {
       if (char === "\n") {
-        textEl.appendChild(document.createElement("br"));
+        spans.push("<br>");
         return;
       }
 
-      const span = document.createElement("span");
-      span.textContent = char === " " ? "\u00A0" : char;
-      span.style.animationDelay = `${delayIndex * 25}ms`;
+      const displayChar = char === " " ? "&nbsp;" : char;
+      spans.push(`<span style="--d:${delayIndex}">${displayChar}</span>`);
       delayIndex++;
+    });
 
-      textEl.appendChild(span);
+    textEl.innerHTML = spans.join("");
+
+    requestAnimationFrame(() => {
+      textEl.classList.add("typing-active");
     });
   }
 
@@ -591,6 +621,7 @@ romance, revenge, horror, and thrilling relationships.`;
 
   const startHomePage = () => {
     currentPage = "home";
+    canvas.style.display = "block";
 
     destroyAnim(Anim.works);
     destroyAnim(Anim.suwa);
@@ -625,7 +656,6 @@ romance, revenge, horror, and thrilling relationships.`;
 
     // reset typing text
     textElement.textContent = "";
-    index = 0;
   };
 
   worksBtn.addEventListener("click", (e) => {
