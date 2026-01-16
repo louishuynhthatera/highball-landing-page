@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // ========================================
+  // DATA - REMOVED DUPLICATES
+  // ========================================
   const worksData = [
     {
       link: "https://swipedrama.com/ja/watch/the-slap/?from=Search&keyword=%E3%83%BB%E3%82%B9%E3%83%A9%E3%83%83%E3%83%97&episode=1",
@@ -16,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
       link: "https://swipedrama.com/ja/watch/10000-iine-karada/?from=Search&keyword=%E3%81%84%E3%81%84%E3%81%AD&episode=1",
       source: "public/video/HP_10000いいね.mp4",
     },
-
     {
       link: "https://swipedrama.com/ja/watch/nurarihyon-no-sumu-ie/?from=Search&keyword=%E3%81%AC%E3%82%89%E3%82%8A%E3%81%B2%E3%82%87%E3%82%93%E3%81%AE%E6%A3%B2%E3%82%80%E5%AE%B6&episode=1",
       source: "public/video/HP_ぬらりひょんの棲む家.mp4",
@@ -35,6 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
     {
+      link: "https://swipedrama.com/ja/watch/10000-iine-karada/?from=Search&keyword=%E3%81%84%E3%81%84%E3%81%AD&episode=1",
+      source: "public/video/HP_10000いいね.mp4",
+    },
+    {
       link: "https://swipedrama.com/ja/watch/nurarihyon-no-sumu-ie/?from=Search&keyword=%E3%81%AC%E3%82%89%E3%82%8A%E3%81%B2%E3%82%87%E3%82%93%E3%81%AE%E6%A3%B2%E3%82%80%E5%AE%B6&episode=1",
       source: "public/video/HP_ぬらりひょんの棲む家.mp4",
     },
@@ -52,55 +58,133 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
     {
+      link: "https://swipedrama.com/ja/watch/10000-iine-karada/?from=Search&keyword=%E3%81%84%E3%81%84%E3%81%AD&episode=1",
+      source: "public/video/HP_10000いいね.mp4",
+    },
+    {
       link: "https://swipedrama.com/ja/watch/nurarihyon-no-sumu-ie/?from=Search&keyword=%E3%81%AC%E3%82%89%E3%82%8A%E3%81%B2%E3%82%87%E3%82%93%E3%81%AE%E6%A3%B2%E3%82%80%E5%AE%B6&episode=1",
       source: "public/video/HP_ぬらりひょんの棲む家.mp4",
     },
     {
       link: "https://swipedrama.com/ja/watch/you-are-my-present/?from=Search&keyword=%E5%90%9B%E3%81%AF%E5%83%95&episode=1",
       source: "public/video/HP_君は僕のプレゼント.mp4",
-    },
-    {
-      link: "https://swipedrama.com/ja/watch/saijaku-muhai-no-tenkousei/?from=Search&episode=1",
-      source: "public/video/HP_最弱無敗の転校生.mp4",
-    },
-    {
-      link: "https://swipedrama.com/ja/watch/kyoiku-mama-saeko/?from=Search&keyword=%E7%8B%82%E8%82%B2%E3%83%9E%E3%83%9E%E3%83%BB%E3%82%B5%E3%82%A8%E3%82%B3&episode=1",
-      source: "public/video/HP_狂育ママ・サエコ.mp4",
     },
   ];
 
-  function renderWorks(items, perRow = 4) {
-    const container = document.getElementById("works-list");
-    container.innerHTML = "";
+  // ========================================
+  // CONSTANTS
+  // ========================================
+  const VIDEO_PATH = {
+    morning: "public/background/Morning.mp4",
+    noon: "public/background/Noon.mp4",
+    evening: "public/background/Evening.mp4",
+    night: "public/background/Night.mp4",
+  };
 
-    const fragment = document.createDocumentFragment();
-
-    for (let i = 0; i < items.length; i += perRow) {
-      const row = document.createElement("div");
-      row.className = "works-row";
-
-      items.slice(i, i + perRow).forEach((item) => {
-        const el = document.createElement("a");
-        el.className = "work-item";
-        el.href = item.link;
-        el.target = "_blank";
-        el.rel = "noopener";
-
-        el.innerHTML = `
-        <video muted loop playsinline preload="none" data-src="${item.source}"></video>
-      `;
-
-        row.appendChild(el);
-      });
-
-      fragment.appendChild(row);
-    }
-
-    container.appendChild(fragment);
-  }
-
+  const ENTER_FRAME_TRIGGER = 378;
+  const ENTER_FRAME_TRIGGER_SCALE = 378;
+  const INITIAL_SEGMENT = [0, 398];
   const JST_OFFSET = 9 * 60;
 
+  // ========================================
+  // DOM ELEMENTS - CACHED
+  // ========================================
+  const DOM = {
+    video: document.getElementById("bg-video"),
+    spinner: document.getElementById("lottie"),
+    logoLoading: document.getElementById("lottieBg"),
+    menuBtn: document.getElementById("menuBtn"),
+    mobileMenu: document.getElementById("mobileMenu"),
+    header: document.getElementById("main-header"),
+    worksBtn: document.getElementById("works-btn"),
+    homeBtn: document.getElementById("home-btn"),
+    worksMobileBtn: document.getElementById("works-btn-mobile"),
+    homeMobileBtn: document.getElementById("home-btn-mobile"),
+    worksLoading: document.getElementById("lottie-works"),
+    overlay: document.getElementById("overlay"),
+    worksPage: document.getElementById("works-page"),
+    textElement: document.getElementById("typing-text"),
+    lottieSuwa: document.getElementById("lottie-suwa"),
+    mobileOverlayBlur: document.getElementById("mobile-overlay-blur"),
+    canvas: document.getElementById("pixel-canvas"),
+    loadingWrapper: document.getElementById("loading-wrapper"),
+    explosionWrapper: document.getElementById("effect-explosion"),
+    explosionVideo: document.getElementById("effect-explosion-video"),
+    worksList: document.getElementById("works-list"),
+    worksContent: document.querySelector(".works-content"),
+    introLogo: document.querySelector(".intro-logo"),
+    mobileMenuBtn: document.querySelector(".mobile-menu-btn"),
+  };
+
+  // ========================================
+  // STATE MANAGEMENT
+  // ========================================
+  const state = {
+    currentPage: "home",
+    isMenuOpen: false,
+    isTransitioning: false,
+    pixelZoomStarted: false,
+    isMobile: window.matchMedia("(max-width: 1024px)").matches,
+  };
+
+  const Anim = {
+    spinner: null,
+    works: null,
+    suwa: null,
+  };
+
+  // ========================================
+  // CLEANUP & OBSERVERS
+  // ========================================
+  let observers = {
+    video: null,
+    scroll: null,
+  };
+
+  let rafIds = {
+    pixelZoom: null,
+    pixelEffect: null,
+    zoomMask: null,
+  };
+
+  const cleanup = {
+    animations() {
+      Object.keys(Anim).forEach((key) => {
+        if (Anim[key]) {
+          Anim[key].destroy();
+          Anim[key] = null;
+        }
+      });
+    },
+
+    observers() {
+      if (observers.video) {
+        observers.video.disconnect();
+        observers.video = null;
+      }
+      if (observers.scroll) {
+        observers.scroll.disconnect();
+        observers.scroll = null;
+      }
+    },
+
+    animationFrames() {
+      Object.values(rafIds).forEach((id) => {
+        if (id) cancelAnimationFrame(id);
+      });
+      rafIds = { pixelZoom: null, pixelEffect: null, zoomMask: null };
+    },
+
+    all() {
+      this.animations();
+      this.observers();
+      this.animationFrames();
+    },
+  };
+
+  // ========================================
+  // UTILITIES
+  // ========================================
   const getJSTHour = () => {
     const now = new Date();
     const utc = now.getTime() + now.getTimezoneOffset() * 60000;
@@ -115,86 +199,47 @@ document.addEventListener("DOMContentLoaded", () => {
     return "night";
   };
 
-  /* =========================
-   CONSTANTS
-========================= */
-
-  const VIDEO_PATH = {
-    morning: "public/background/Morning.mp4",
-    noon: "public/background/Noon.mp4",
-    evening: "public/background/Evening.mp4",
-    night: "public/background/Night.mp4",
+  const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
   };
 
-  const ENTER_FRAME_TRIGGER = 378;
-  const ENTER_FRAME_TRIGGER_SCALE = 378;
-  const INITIAL_SEGMENT = [0, 398];
+  // ========================================
+  // VIDEO SETUP WITH OPTIMIZATION
+  // ========================================
+  const currentBg = "noon";
+  DOM.video.src = VIDEO_PATH[currentBg];
+  DOM.video.preload = "none"; // Changed from "metadata"
+  DOM.video.load();
 
-  /* =========================
-   DOM ELEMENTS
-========================= */
+  // Pause video when tab is hidden
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      DOM.video.pause();
+    } else if (state.currentPage === "home") {
+      DOM.video.play().catch((err) => {
+        console.warn("Video autoplay blocked:", err);
+      });
+    }
+  });
 
-  const video = document.getElementById("bg-video");
-  const spinner = document.getElementById("lottie");
-  const logoLoading = document.getElementById("lottieBg");
-  const menuBtn = document.getElementById("menuBtn");
-  const mobileMenu = document.getElementById("mobileMenu");
-  const header = document.getElementById("main-header");
-  const worksBtn = document.getElementById("works-btn");
-  const homeBtn = document.getElementById("home-btn");
-  const worksMobileBtn = document.getElementById("works-btn-mobile");
-  const homeMobileBtn = document.getElementById("home-btn-mobile");
-  const worksLoading = document.getElementById("lottie-works");
-  const overlay = document.getElementById("overlay");
-  const worksPage = document.getElementById("works-page");
-  const worksPageRows = document.querySelectorAll(".works-row");
-  const textElement = document.getElementById("typing-text");
-  const lottieSuwa = document.getElementById("lottie-suwa");
-  const mobileOverlayBlur = document.getElementById("mobile-overlay-blur");
-  const canvas = document.getElementById("pixel-canvas");
-  const loadingWrapper = document.getElementById("loading-wrapper");
-  const isMobile = window.matchMedia("(max-width: 1024px)").matches;
-
-  let isMenuOpen = false;
-  let pixelZoomStarted = false;
-
-  // let currentPage = "home";
-  // "home" | "works"
-  let currentPage = "home";
-  // home | works
-
-  let isTransitioning = false;
-
-  const Anim = {
-    spinner: null,
-    works: null,
-    suwa: null,
-  };
-
-  /* =========================
-   VIDEO SETUP
-========================= */
-
-  const currentBg = getCurrentBackground();
-
-  video.src = VIDEO_PATH[currentBg];
-  video.load();
-
-  /* =========================
-   HEADER
-========================= */
-
-  const showHeader = () => {
-    header?.classList.add("show");
-    document.querySelector(".mobile-menu-btn")?.classList.add("show");
-  };
-
-  /* =====================================================
-   LOTTIE HELPERS
-  ===================================================== */
+  // ========================================
+  // LOTTIE HELPERS
+  // ========================================
   const destroyAnim = (anim) => {
     if (!anim) return;
-    anim.destroy();
+    try {
+      anim.destroy();
+    } catch (err) {
+      console.warn("Animation destroy error:", err);
+    }
   };
 
   const loadLottie = (options) => {
@@ -206,35 +251,162 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  /* =========================
-   LOTTIE LOADING
-========================= */
+  // ========================================
+  // HEADER
+  // ========================================
+  const showHeader = () => {
+    DOM.header?.classList.add("show");
+    DOM.mobileMenuBtn?.classList.add("show");
+  };
 
+  // ========================================
+  // CANVAS CONTEXT
+  // ========================================
+  const ctx = DOM.canvas.getContext("2d", {
+    alpha: false, // Performance optimization
+    desynchronized: true, // Reduce latency
+  });
+
+  // ========================================
+  // ANIMATION FUNCTIONS WITH RAF CLEANUP
+  // ========================================
+  function runPixelZoomEffect({
+    duration = 900,
+    pixelFrom = 48,
+    pixelTo = 2,
+    radiusMid = 40,
+    radiusTo = 130,
+  }) {
+    const start = performance.now();
+    DOM.video.style.opacity = "0";
+    DOM.canvas.style.opacity = "1";
+
+    function animate(now) {
+      const t = Math.min((now - start) / duration, 1);
+      let radius, pixelSize;
+
+      if (t < 0.4) {
+        const p = t / 0.4;
+        const eased = Math.pow(p, 4.5);
+        radius = 0.1 + (40 - 0.1) * eased;
+        pixelSize = pixelFrom;
+      } else {
+        const p = (t - 0.4) / 0.6;
+        const eased = 1 - Math.pow(1 - p, 3.5);
+        radius = radiusMid + (radiusTo - radiusMid) * eased;
+        pixelSize = pixelFrom * 0.7 + (pixelTo - pixelFrom * 0.7) * eased;
+      }
+
+      DOM.canvas.width = Math.floor(window.innerWidth / pixelSize);
+      DOM.canvas.height = Math.floor(window.innerHeight / pixelSize);
+
+      if (DOM.video.readyState >= 2) {
+        ctx.drawImage(DOM.video, 0, 0, DOM.canvas.width, DOM.canvas.height);
+      }
+
+      DOM.canvas.style.clipPath = `circle(${radius}% at 50% 50%)`;
+      DOM.video.style.clipPath = `circle(${radius}% at 50% 50%)`;
+
+      if (t < 1) {
+        rafIds.pixelZoom = requestAnimationFrame(animate);
+      } else {
+        DOM.video.style.opacity = "1";
+        rafIds.pixelZoom = null;
+      }
+    }
+
+    rafIds.pixelZoom = requestAnimationFrame(animate);
+  }
+
+  function runZoomMaskEffect({
+    duration = 900,
+    radiusMid = 40,
+    radiusTo = 130,
+  }) {
+    const start = performance.now();
+
+    function animate(now) {
+      const t = Math.min((now - start) / duration, 1);
+      let radius;
+
+      if (t < 0.4) {
+        const p = t / 0.4;
+        const eased = Math.pow(p, 4.5);
+        radius = 0.1 + (40 - 0.1) * eased;
+      } else {
+        const p = (t - 0.4) / 0.6;
+        const eased = 1 - Math.pow(1 - p, 3.5);
+        radius = radiusMid + (radiusTo - radiusMid) * eased;
+      }
+
+      DOM.video.style.clipPath = `circle(${radius}% at 50% 50%)`;
+
+      if (t < 1) {
+        rafIds.zoomMask = requestAnimationFrame(animate);
+      } else {
+        DOM.video.style.opacity = "1";
+        rafIds.zoomMask = null;
+      }
+    }
+
+    rafIds.zoomMask = requestAnimationFrame(animate);
+  }
+
+  function runPixelEffect({ duration = 2000, from = 10, to = 100 }) {
+    const start = performance.now();
+
+    function animate(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const pixelSize = Math.floor(from + (to - from) * progress);
+
+      DOM.canvas.width = Math.floor(window.innerWidth / pixelSize);
+      DOM.canvas.height = Math.floor(window.innerHeight / pixelSize);
+
+      if (DOM.video.readyState >= 2) {
+        ctx.drawImage(DOM.video, 0, 0, DOM.canvas.width, DOM.canvas.height);
+      }
+
+      if (progress < 1) {
+        rafIds.pixelEffect = requestAnimationFrame(animate);
+      } else {
+        rafIds.pixelEffect = null;
+      }
+    }
+
+    rafIds.pixelEffect = requestAnimationFrame(animate);
+  }
+
+  // ========================================
+  // LOADING ANIMATIONS
+  // ========================================
   const playLogoHighBallAnimation = () => {
     loadLottie({
-      container: logoLoading,
-      path: "Logo.json",
+      container: DOM.logoLoading,
+      path: "logo-animation.json",
     });
   };
 
   const onSpinnerEnterFrame = (e) => {
     if (e.currentTime >= ENTER_FRAME_TRIGGER_SCALE) {
-      spinner.style.transform = "scale(1)";
+      DOM.spinner.style.transform = "scale(1)";
     }
+
     if (e.currentTime >= ENTER_FRAME_TRIGGER) {
       Anim.spinner.removeEventListener("enterFrame", onSpinnerEnterFrame);
       document.querySelector(".content")?.classList.add("show");
       playLogoHighBallAnimation();
     }
-    if (!isMobile) {
-      video.style.opacity = "0";
+
+    if (!state.isMobile) {
+      DOM.video.style.opacity = "0";
     }
 
-    if (e.currentTime >= 358 && !pixelZoomStarted) {
-      loadingWrapper.style.background = "transparent";
+    if (e.currentTime >= 358 && !state.pixelZoomStarted) {
+      DOM.loadingWrapper.style.background = "transparent";
+      state.pixelZoomStarted = true;
 
-      pixelZoomStarted = true;
-      if (isMobile) {
+      if (state.isMobile) {
         runZoomMaskEffect({
           duration: 1500,
           pixelFrom: 100,
@@ -254,99 +426,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  function runPixelZoomEffect({
-    duration = 900,
-    pixelFrom = 48,
-    pixelTo = 2,
-    radiusFrom = 0,
-    radiusMid = 40,
-    radiusTo = 130,
-  }) {
-    const start = performance.now();
-
-    video.style.opacity = "0";
-    canvas.style.opacity = "1";
-
-    function animate(now) {
-      const t = Math.min((now - start) / duration, 1);
-
-      let radius;
-      let pixelSize;
-
-      if (t < 0.4) {
-        const p = t / 0.4;
-
-        const eased = Math.pow(p, 4.5);
-
-        radius = 0.1 + (40 - 0.1) * eased;
-
-        pixelSize = pixelFrom;
-      } else {
-        const p = (t - 0.4) / 0.6;
-        const eased = 1 - Math.pow(1 - p, 3.5);
-
-        radius = radiusMid + (radiusTo - radiusMid) * eased;
-        pixelSize = pixelFrom * 0.7 + (pixelTo - pixelFrom * 0.7) * eased;
-      }
-
-      canvas.width = Math.floor(window.innerWidth / pixelSize);
-      canvas.height = Math.floor(window.innerHeight / pixelSize);
-
-      if (video.readyState >= 2) {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      }
-
-      canvas.style.clipPath = `circle(${radius}% at 50% 50%)`;
-      video.style.clipPath = `circle(${radius}% at 50% 50%)`;
-      if (t < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        video.style.opacity = "1";
-      }
-    }
-
-    requestAnimationFrame(animate);
-  }
-
-  function runZoomMaskEffect({
-    duration = 900,
-    radiusMid = 40,
-    radiusTo = 130,
-  }) {
-    const start = performance.now();
-
-    function animate(now) {
-      const t = Math.min((now - start) / duration, 1);
-
-      let radius;
-
-      if (t < 0.4) {
-        const p = t / 0.4;
-
-        const eased = Math.pow(p, 4.5);
-
-        radius = 0.1 + (40 - 0.1) * eased;
-      } else {
-        const p = (t - 0.4) / 0.6;
-        const eased = 1 - Math.pow(1 - p, 3.5);
-
-        radius = radiusMid + (radiusTo - radiusMid) * eased;
-      }
-
-      video.style.clipPath = `circle(${radius}% at 50% 50%)`;
-
-      if (t < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        video.style.opacity = "1";
-      }
-    }
-
-    requestAnimationFrame(animate);
-  }
-
+  // Initialize spinner
   Anim.spinner = loadLottie({
-    container: spinner,
+    container: DOM.spinner,
     path: "spinner.json",
     initialSegment: INITIAL_SEGMENT,
     rendererSettings: {
@@ -358,83 +440,176 @@ document.addEventListener("DOMContentLoaded", () => {
 
   Anim.spinner.addEventListener("complete", () => {
     destroyAnim(Anim.spinner);
+    Anim.spinner = null;
 
     setTimeout(() => {
-      video.play().catch(() => {});
+      DOM.video.play().catch((err) => {
+        console.warn("Video autoplay failed:", err);
+      });
     }, 300);
 
-    loadingWrapper?.style.setProperty("background-color", "transparent");
-
-    video.classList.add("move");
+    DOM.loadingWrapper?.style.setProperty("background-color", "transparent");
+    DOM.video.classList.add("move");
     showHeader();
   });
 
-  /* =========================
-   MOBILE MENU
-========================= */
+  // ========================================
+  // WORKS PAGE RENDERING - OPTIMIZED
+  // ========================================
+  function renderWorks(items, perRow = 4) {
+    if (!DOM.worksList) return;
 
-  menuBtn.addEventListener("click", () => {
-    isMenuOpen = !isMenuOpen;
+    DOM.worksList.innerHTML = "";
+    const fragment = document.createDocumentFragment();
 
-    menuBtn.classList.toggle("active", isMenuOpen);
-    mobileMenu.classList.toggle("show", isMenuOpen);
+    for (let i = 0; i < items.length; i += perRow) {
+      const row = document.createElement("div");
+      row.className = "works-row";
 
-    menuBtn.innerHTML = isMenuOpen
-      ? '<i class="bi bi-x-lg"></i>'
-      : '<i class="bi bi-list"></i>';
-  });
+      items.slice(i, i + perRow).forEach((item) => {
+        const el = document.createElement("a");
+        el.className = "work-item";
+        el.href = item.link;
+        el.target = "_blank";
+        el.rel = "noopener noreferrer"; // Security improvement
 
-  /* =====================================================
-   PIXEL EFFECT
-  ===================================================== */
+        // Add loading attribute and poster for better UX
+        el.innerHTML = `
+          <video 
+            muted 
+            loop 
+            playsinline 
+            preload="none" 
+            data-src="${item.source}"
+            loading="lazy">
+          </video>
+        `;
 
-  const ctx = canvas.getContext("2d");
+        row.appendChild(el);
+      });
 
-  function resizeCanvas(pixelSize) {
-    canvas.width = Math.floor(window.innerWidth / pixelSize);
-    canvas.height = Math.floor(window.innerHeight / pixelSize);
-  }
-
-  function runPixelEffect({ duration = 2000, from = 10, to = 100 }) {
-    const start = performance.now();
-
-    function animate(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-
-      const pixelSize = Math.floor(from + (to - from) * progress);
-
-      resizeCanvas(pixelSize);
-
-      if (video.readyState >= 2) {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      }
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
+      fragment.appendChild(row);
     }
 
-    requestAnimationFrame(animate);
+    DOM.worksList.appendChild(fragment);
   }
 
-  /* =====================================================
-   WORKS FLOW (DESKTOP + MOBILE)
-  ===================================================== */
+  // ========================================
+  // INTERSECTION OBSERVERS - WITH CLEANUP
+  // ========================================
+  function setupWorksScrollAnimation() {
+    // Cleanup old observer
+    if (observers.scroll) {
+      observers.scroll.disconnect();
+    }
 
+    const rows = document.querySelectorAll(".works-row");
+
+    observers.scroll = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observers.scroll.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: "50px", // Preload slightly earlier
+      }
+    );
+
+    rows.forEach((row) => observers.scroll.observe(row));
+  }
+
+  function setupVideoLazyLoad() {
+    // Cleanup old observer
+    if (observers.video) {
+      observers.video.disconnect();
+    }
+
+    const videos = document.querySelectorAll("video[data-src]");
+
+    observers.video = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const video = entry.target;
+
+          if (entry.isIntersecting) {
+            if (!video.src && video.dataset.src) {
+              video.src = video.dataset.src;
+              video.load();
+            }
+            video.play().catch(() => {
+              // Silent fail for autoplay
+            });
+          } else {
+            video.pause();
+          }
+        });
+      },
+      {
+        rootMargin: "200px",
+        threshold: 0.25,
+      }
+    );
+
+    videos.forEach((v) => observers.video.observe(v));
+  }
+
+  // ========================================
+  // TYPING ANIMATION - OPTIMIZED
+  // ========================================
+  const text = `SWIPEDRAMA brings you bite-sized vertical dramas perfect for filling spare moments.
+With episodes lasting just 1 minute, immerse yourself instantly in exciting stories about
+romance, revenge, horror, and thrilling relationships.`;
+
+  function typeChar() {
+    if (!DOM.textElement) return;
+
+    const spans = [];
+    let delayIndex = 0;
+
+    [...text].forEach((char) => {
+      if (char === "\n") {
+        spans.push("<br>");
+        return;
+      }
+
+      const displayChar = char === " " ? "&nbsp;" : char;
+      spans.push(`<span style="--d:${delayIndex}">${displayChar}</span>`);
+      delayIndex++;
+    });
+
+    DOM.textElement.innerHTML = spans.join("");
+
+    requestAnimationFrame(() => {
+      DOM.textElement.classList.add("typing-active");
+    });
+  }
+
+  // ========================================
+  // WORKS PAGE FLOW
+  // ========================================
   const startWorksPage = ({ isMobile }) => {
     resetWorksPageUI();
-    currentPage = "works";
-    destroyAnim(Anim.works);
+    state.currentPage = "works";
+
+    // Cleanup previous animation
+    if (Anim.works) {
+      destroyAnim(Anim.works);
+      Anim.works = null;
+    }
 
     const options = {
-      container: worksLoading,
+      container: DOM.worksLoading,
       path: "works-page-animation.json",
     };
 
     if (!isMobile) {
-      logoLoading.style.display = "none";
-      video.style.opacity = 0;
+      DOM.logoLoading.style.display = "none";
+      DOM.video.style.opacity = 0;
       options.rendererSettings = {
         preserveAspectRatio: "xMidYMid slice",
       };
@@ -450,21 +625,25 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     Anim.works.addEventListener("enterFrame", (e) => {
-      if (e.currentTime >= 30) overlay.style.opacity = 1;
+      if (e.currentTime >= 30) DOM.overlay.style.opacity = 1;
     });
 
     Anim.works.addEventListener("complete", () => {
       destroyAnim(Anim.works);
+      Anim.works = null;
       startSuwa({ isMobile });
-      canvas.style.display = "none";
+      DOM.canvas.style.display = "none";
     });
   };
 
   const startSuwa = ({ isMobile }) => {
-    destroyAnim(Anim.suwa);
+    if (Anim.suwa) {
+      destroyAnim(Anim.suwa);
+      Anim.suwa = null;
+    }
 
     Anim.suwa = loadLottie({
-      container: lottieSuwa,
+      container: DOM.lottieSuwa,
       path: "highball_suwa_walk_1fix.json",
       initialSegment: isMobile ? [100, 160] : [0, 210],
       rendererSettings: {
@@ -473,96 +652,47 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (isMobile) {
-      logoLoading.style.display = "none";
+      DOM.logoLoading.style.display = "none";
     }
 
     Anim.suwa.addEventListener("complete", () => {
       destroyAnim(Anim.suwa);
+      Anim.suwa = null;
       playExplosion();
     });
   };
 
-  const playExplosion = () => {
-    const wrapper = document.getElementById("effect-explosion");
-    const videoFx = document.getElementById("effect-explosion-video");
+  function playExplosionVideo() {
+    const img = document.getElementById("effect-explosion-video");
 
-    wrapper.style.opacity = "1";
-    videoFx.currentTime = 0;
-    videoFx.play().catch(() => {});
-    overlay.classList.add("fade-out");
+    img.style.display = "block";
+
+    img.src = "Eff_Explosion_01.apng?t=" + Date.now();
+
     setTimeout(() => {
-      wrapper.style.opacity = "0";
+      img.style.display = "none";
+      img.src = "";
+    }, 1000);
+  }
 
+  const playExplosion = () => {
+    DOM.explosionWrapper.style.opacity = "1";
+    // DOM.explosionVideo.currentTime = 0;
+    // DOM.explosionVideo.play().catch(() => {});
+    playExplosionVideo();
+
+    DOM.overlay.classList.add("fade-out");
+    setTimeout(() => {
+      DOM.explosionWrapper.style.opacity = "0";
       showWorksPage();
       showLogo();
       typeChar();
-
-      isTransitioning = false;
+      state.isTransitioning = false;
     }, 500);
-    // videoFx.onended = () => {
-    //    wrapper.style.opacity = "0";
-
-    //   showWorksPage();
-    //   showLogo();
-    //   typeChar();
-
-    //   isTransitioning = false;
-    // };
   };
 
-  /* =====================================================
-   WORKS PAGE UI
-  ===================================================== */
-  function setupWorksScrollAnimation() {
-    const rows = document.querySelectorAll(".works-row");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.3,
-      }
-    );
-
-    rows.forEach((row) => observer.observe(row));
-  }
-
-  function setupVideoLazyLoad() {
-    const videos = document.querySelectorAll("video[data-src]");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const video = entry.target;
-
-          if (entry.isIntersecting) {
-            if (!video.src) {
-              video.src = video.dataset.src;
-              video.load();
-            }
-            video.play().catch(() => {});
-          } else {
-            video.pause();
-          }
-        });
-      },
-      {
-        rootMargin: "200px",
-        threshold: 0.25,
-      }
-    );
-
-    videos.forEach((v) => observer.observe(v));
-  }
-
   const showWorksPage = () => {
-    worksPage.classList.add("show");
+    DOM.worksPage.classList.add("show");
     renderWorks(worksData);
 
     requestAnimationFrame(() => {
@@ -572,115 +702,124 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function showLogo() {
-    const logo = document.querySelector(".intro-logo");
-    logo.classList.add("show");
-  }
-  const textEl = document.getElementById("typing-text");
-  const text = `SWIPEDRAMA brings you bite-sized vertical dramas perfect for filling spare moments.
-With episodes lasting just 1 minute, immerse yourself instantly in exciting stories about
-romance, revenge, horror, and thrilling relationships.`;
-
-  function typeChar() {
-    const fragment = document.createDocumentFragment();
-    let delayIndex = 0;
-
-    const spans = [];
-
-    [...text].forEach((char) => {
-      if (char === "\n") {
-        spans.push("<br>");
-        return;
-      }
-
-      const displayChar = char === " " ? "&nbsp;" : char;
-      spans.push(`<span style="--d:${delayIndex}">${displayChar}</span>`);
-      delayIndex++;
-    });
-
-    textEl.innerHTML = spans.join("");
-
-    requestAnimationFrame(() => {
-      textEl.classList.add("typing-active");
-    });
+    DOM.introLogo?.classList.add("show");
   }
 
-  const navigateTo = (page, { isMobile = false } = {}) => {
-    if (isTransitioning) return;
-    if (currentPage === page) return;
-
-    isTransitioning = true;
-
-    if (page === "works") {
-      startWorksPage({ isMobile });
-    }
-
-    if (page === "home") {
-      startHomePage();
-    }
-  };
-
+  // ========================================
+  // HOME PAGE
+  // ========================================
   const startHomePage = () => {
-    currentPage = "home";
-    canvas.style.display = "block";
+    state.currentPage = "home";
+    DOM.canvas.style.display = "block";
 
-    destroyAnim(Anim.works);
-    destroyAnim(Anim.suwa);
-
+    cleanup.animations();
     resetWorksPageUI();
 
-    overlay.style.opacity = "0";
-    overlay.classList.remove("fade-out");
+    DOM.overlay.style.opacity = "0";
+    DOM.overlay.classList.remove("fade-out");
+    DOM.worksPage.classList.remove("show");
+    DOM.video.style.opacity = "1";
+    DOM.logoLoading.style.display = "block";
 
-    worksPage.classList.remove("show");
-
-    video.style.opacity = "1";
-    logoLoading.style.display = "block";
-
-    isTransitioning = false;
+    state.isTransitioning = false;
   };
 
   function resetWorksScroll() {
-    const worksContent = document.querySelector(".works-content");
-    if (worksContent) {
-      worksContent.scrollTop = 0;
+    if (DOM.worksContent) {
+      DOM.worksContent.scrollTop = 0;
     }
   }
 
   const resetWorksPageUI = () => {
-    worksPage.classList.remove("show");
+    DOM.worksPage.classList.remove("show");
     resetWorksScroll();
+    cleanup.observers();
 
-    worksPageRows.forEach((row) => {
-      row.classList.remove("is-visible");
-    });
+    const rows = document.querySelectorAll(".works-row");
+    rows.forEach((row) => row.classList.remove("is-visible"));
 
-    // reset typing text
-    textElement.textContent = "";
+    if (DOM.textElement) {
+      DOM.textElement.textContent = "";
+      DOM.textElement.classList.remove("typing-active");
+    }
   };
 
-  worksBtn.addEventListener("click", (e) => {
+  // ========================================
+  // NAVIGATION
+  // ========================================
+  const navigateTo = (page, { isMobile = false } = {}) => {
+    if (state.isTransitioning) return;
+    if (state.currentPage === page) return;
+
+    state.isTransitioning = true;
+
+    if (page === "works") {
+      startWorksPage({ isMobile });
+    } else if (page === "home") {
+      startHomePage();
+    }
+  };
+
+  // ========================================
+  // MOBILE MENU
+  // ========================================
+  DOM.menuBtn.addEventListener("click", () => {
+    state.isMenuOpen = !state.isMenuOpen;
+
+    DOM.menuBtn.classList.toggle("active", state.isMenuOpen);
+    DOM.mobileMenu.classList.toggle("show", state.isMenuOpen);
+
+    DOM.menuBtn.innerHTML = state.isMenuOpen
+      ? '<i class="bi bi-x-lg"></i>'
+      : '<i class="bi bi-list"></i>';
+  });
+
+  // ========================================
+  // EVENT LISTENERS
+  // ========================================
+  DOM.worksBtn?.addEventListener("click", (e) => {
     e.preventDefault();
     navigateTo("works", { isMobile: false });
   });
 
-  //  Mobile
-
-  worksMobileBtn.addEventListener("click", (e) => {
+  DOM.worksMobileBtn?.addEventListener("click", (e) => {
     e.preventDefault();
-    menuBtn.click();
-    mobileOverlayBlur.style.display = "block";
-
+    DOM.menuBtn.click();
+    DOM.mobileOverlayBlur.style.display = "block";
     navigateTo("works", { isMobile: true });
   });
 
-  homeBtn.addEventListener("click", () => {
+  DOM.homeBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
     navigateTo("home");
   });
 
-  homeMobileBtn.addEventListener("click", () => {
+  DOM.homeMobileBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
     navigateTo("home");
-    mobileOverlayBlur.style.display = "none";
+    DOM.mobileOverlayBlur.style.display = "none";
+    DOM.menuBtn.click();
+  });
 
-    menuBtn.click();
+  // ========================================
+  // WINDOW RESIZE - DEBOUNCED
+  // ========================================
+  const handleResize = debounce(() => {
+    state.isMobile = window.matchMedia("(max-width: 1024px)").matches;
+
+    if (DOM.canvas.style.opacity === "1") {
+      const pixelSize = 2;
+      DOM.canvas.width = Math.floor(window.innerWidth / pixelSize);
+      DOM.canvas.height = Math.floor(window.innerHeight / pixelSize);
+    }
+  }, 150);
+
+  window.addEventListener("resize", handleResize, { passive: true });
+
+  // ========================================
+  // CLEANUP ON PAGE UNLOAD
+  // ========================================
+  window.addEventListener("beforeunload", () => {
+    cleanup.all();
   });
 });
