@@ -36,12 +36,14 @@ body {
   position: absolute;
   top: 15vh;
   left: 10vh;
+  pointer-events: none;
 }
 
 .intro-logo {
   opacity: 0;
   transform: translateX(-60px);
   transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+  pointer-events: none;
 }
 
 .intro-logo.show {
@@ -62,6 +64,7 @@ body {
   white-space: normal;
   word-break: break-word;
   overflow-wrap: break-word;
+  pointer-events: none;
 }
 
 #typing-text {

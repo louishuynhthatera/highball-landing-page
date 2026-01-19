@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ========================================
   // VIDEO SETUP WITH OPTIMIZATION
   // ========================================
-  const currentBg = "noon";
+  const currentBg = getCurrentBackground();
   DOM.video.src = VIDEO_PATH[currentBg];
   DOM.video.preload = "none"; // Changed from "metadata"
   DOM.video.load();
@@ -471,9 +471,8 @@ document.addEventListener("DOMContentLoaded", () => {
         el.className = "work-item";
         el.href = item.link;
         el.target = "_blank";
-        el.rel = "noopener noreferrer"; // Security improvement
+        el.rel = "noopener noreferrer";
 
-        // Add loading attribute and poster for better UX
         el.innerHTML = `
           <video 
             muted 
@@ -516,7 +515,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       {
         threshold: 0.3,
-        rootMargin: "50px", // Preload slightly earlier
+        rootMargin: "50px",
       }
     );
 
@@ -529,33 +528,59 @@ document.addEventListener("DOMContentLoaded", () => {
       observers.video.disconnect();
     }
 
-    const videos = document.querySelectorAll("video[data-src]");
+    const ROW_BATCH = 2;
+    const rows = Array.from(document.querySelectorAll(".works-row"));
+    let currentIndex = 0;
+
+    if (!rows.length) return;
+
+    function loadRow(row) {
+      if (row.dataset.loaded === "true") return;
+
+      const videos = row.querySelectorAll("video[data-src]");
+
+      videos.forEach((video, index) => {
+        if (!video.src) {
+          video.src = video.dataset.src;
+          video.load();
+          video.play().catch(() => {});
+        }
+      });
+
+      row.dataset.loaded = "true";
+    }
+
+    function loadNextBatch() {
+      for (let i = 0; i < ROW_BATCH && currentIndex < rows.length; i++) {
+        loadRow(rows[currentIndex]);
+        currentIndex++;
+      }
+    }
+
+    loadNextBatch();
 
     observers.video = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          const video = entry.target;
+          if (!entry.isIntersecting) return;
 
-          if (entry.isIntersecting) {
-            if (!video.src && video.dataset.src) {
-              video.src = video.dataset.src;
-              video.load();
-            }
-            video.play().catch(() => {
-              // Silent fail for autoplay
-            });
-          } else {
-            video.pause();
+          observers.video.unobserve(entry.target);
+          loadNextBatch();
+
+          if (currentIndex < rows.length) {
+            observers.video.observe(rows[currentIndex - 1]);
           }
         });
       },
       {
-        rootMargin: "200px",
-        threshold: 0.25,
+        rootMargin: "300px",
+        threshold: 0.1,
       }
     );
 
-    videos.forEach((v) => observers.video.observe(v));
+    if (rows[ROW_BATCH - 1]) {
+      observers.video.observe(rows[ROW_BATCH - 1]);
+    }
   }
 
   // ========================================
@@ -641,7 +666,11 @@ romance, revenge, horror, and thrilling relationships.`;
       destroyAnim(Anim.suwa);
       Anim.suwa = null;
     }
+    renderWorks(worksData);
 
+    requestAnimationFrame(() => {
+      setupVideoLazyLoad();
+    });
     Anim.suwa = loadLottie({
       container: DOM.lottieSuwa,
       path: "highball_suwa_walk_1fix.json",
@@ -661,7 +690,6 @@ romance, revenge, horror, and thrilling relationships.`;
       playExplosion();
     });
   };
-
   function playExplosionVideo() {
     const img = document.getElementById("effect-explosion-video");
 
@@ -693,10 +721,10 @@ romance, revenge, horror, and thrilling relationships.`;
 
   const showWorksPage = () => {
     DOM.worksPage.classList.add("show");
-    renderWorks(worksData);
+    // renderWorks(worksData);
 
     requestAnimationFrame(() => {
-      setupVideoLazyLoad();
+      // setupVideoLazyLoad();
       setupWorksScrollAnimation();
     });
   };
