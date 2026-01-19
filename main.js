@@ -674,7 +674,7 @@ romance, revenge, horror, and thrilling relationships.`;
     Anim.suwa = loadLottie({
       container: DOM.lottieSuwa,
       path: "highball_suwa_walk_1fix.json",
-      initialSegment: isMobile ? [100, 160] : [0, 210],
+      initialSegment: isMobile ? [100, 170] : [0, 210],
       rendererSettings: {
         preserveAspectRatio: "xMidYMid slice",
       },
