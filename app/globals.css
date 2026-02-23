@@ -1,0 +1,751 @@
+
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  
+  --font-title: clamp(28px, 4.115vw, 79px);
+  --font-subtitle: clamp(16px, 1.77vw, 34px);
+  --font-typing: clamp(14px, 1.146vw, 22px);
+  --font-nav: clamp(12px, 0.729vw, 14px);
+
+  --lottie-bg-scale: 0.9;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+  overflow-x: hidden;
+}
+
+.intro-logo,
+.mobile-menu .nav-link,
+.work-item,
+.works-row,
+#bg-video,
+#pixel-canvas,
+#overlay {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.intro-logo.show,
+.mobile-menu.show .nav-link,
+.works-row.is-visible .work-item {
+  will-change: auto;
+}
+
+.sidebar a {
+  color: #ffffff;
+}
+
+.work-item video {
+  will-change: auto;
+}
+
+.works-row.is-visible .work-item video {
+  will-change: opacity, transform;
+}
+
+.intro {
+  z-index: 1;
+  position: absolute;
+  top: clamp(60px, 15vh, 200px);
+  left: clamp(40px, 10vh, 150px);
+  pointer-events: none;
+}
+
+.intro-logo {
+  opacity: 0;
+  transform: translateX(-60px) scale(0.8);
+  transition:
+    opacity 1.2s ease-out,
+    transform 1.2s ease-out;
+  pointer-events: none;
+  transform-origin: left center;
+}
+
+.intro-logo.show {
+  opacity: 1;
+  transform: translateX(0) scale(0.8);
+}
+
+.intro-mobile {
+  display: none; 
+  position: fixed;
+  bottom: clamp(20px, 4vh, 60px);
+  left: 0;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5vw;
+}
+
+.intro-logo-mobile {
+  opacity: 0;
+  transform: translateY(60px);
+  transition:
+    opacity 1.2s ease-out,
+    transform 1.2s ease-out;
+  pointer-events: none;
+  max-width: clamp(200px, 65vw, 500px);
+  width: 100%;
+  height: auto;
+}
+
+.intro-logo-mobile.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.typing-text {
+  margin-top: clamp(12px, 1.042vw, 20px);
+  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+  font-weight: 700;
+  font-size: var(--font-typing);
+  line-height: 1.4;
+  letter-spacing: 0.021em;
+  color: #ffffff;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  pointer-events: none;
+}
+
+#typing-text {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+#typing-text span {
+  opacity: 0;
+  display: inline;
+}
+
+#typing-text.typing-active span {
+  animation: fadeIn 0.1s forwards;
+  animation-delay: calc(var(--d) * 25ms);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+#works-page {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 0.417vw, 8px);
+  opacity: 0;
+  background-color: #000;
+  pointer-events: none;
+}
+
+#works-page.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.works-content {
+  padding: 20vh clamp(8px, 0.521vw, 10px) clamp(8px, 0.521vw, 10px) clamp(8px, 0.521vw, 10px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+   scrollbar-width: none; 
+  -ms-overflow-style: none;
+}
+
+.works-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(4px, 0.417vw, 8px);
+  margin-bottom: clamp(6px, 0.521vw, 10px);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.works-row.is-visible {
+  opacity: 1;
+}
+
+.works-row.is-visible .work-item {
+  transform: translateX(0);
+}
+
+.work-item {
+  aspect-ratio: 3 / 5;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #000;
+  transition: transform 3s cubic-bezier(0.005, 1, 0.5, 1);
+  transform: translateX(100vw);
+  contain: layout style paint;
+}
+
+.work-item:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.work-item:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.work-item:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.work-item:nth-child(4) {
+  transition-delay: 0.4s;
+}
+
+.work-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  inset: 0;
+  background: black;
+  pointer-events: none;
+  z-index: 10;
+  clip-path: circle(0% at 50% 50%);
+}
+
+#pixel-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+#effect-explosion {
+  position: fixed;
+  inset: 0;
+  z-index: 12;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  width: clamp(200px, 40%, 600px);
+  transform: translate(5%, 130%);
+  height: clamp(200px, 40%, 600px);
+}
+
+#effect-explosion-video {
+  width: clamp(200px, 40%, 600px);
+  transform: translate(5%, 130%);
+  height: clamp(200px, 40%, 600px);
+  object-fit: contain;
+}
+
+#bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  object-fit: cover;
+  z-index: 1;
+}
+
+#loading-wrapper {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9;
+  transition: opacity 0.8s ease;
+}
+
+#lottie {
+  z-index: 1;
+  transform: scale(0.8);
+  transform-origin: center;
+}
+
+#lottie,
+#lottieBg,
+#lottie-works {
+  position: absolute;
+  inset: 0;
+}
+
+#lottie-suwa {
+  position: fixed;
+  bottom: 20%;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  z-index: 12;
+  width: clamp(120px, 14vw, 160px);
+}
+
+#suwa-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+#lottieBg {
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#lottieBg svg {
+  transform: scale(var(--lottie-bg-scale)) !important;
+  transform-origin: center;
+}
+
+#lottie-works {
+  z-index: 3;
+  position: fixed;
+  inset: 0;
+}
+
+#main-header.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+#main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: clamp(16px, 1.25vw, 24px) clamp(20px, 1.667vw, 32px) 0 clamp(20px, 1.667vw, 32px);
+  z-index: 11;
+  transform: translateY(-12px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  opacity: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: baseline;
+}
+
+.logo img {
+  width: clamp(100px, 7.5vw, 120px);
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.sidebar {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(16px, 1.667vw, 32px);
+  flex: none;
+}
+
+.nav-link {
+  color: #ffffff;
+  border: none;
+  padding: 0;
+  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+  font-weight: 700;
+  font-size: var(--font-nav);
+  line-height: 1.286;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
+
+.content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 6%;
+  transform: translateY(120px);
+  opacity: 0;
+  padding: clamp(16px, 1.146vw, 22px);
+  transition:
+    transform 1s ease-out,
+    opacity 1s ease-out;
+}
+
+.content.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.title {
+  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+  font-weight: 700;
+  font-size: var(--font-title);
+  line-height: 1;
+  color: #ffffff;
+}
+
+.subText {
+  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+  font-weight: 700;
+  font-size: var(--font-subtitle);
+  text-align: center;
+  color: #ffffff;
+}
+
+#mobile-overlay-blur {
+  background: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 10;
+  display: none;
+}
+
+.mobile-menu,
+.mobile-menu-btn {
+  display: none;
+}
+
+
+/* Desktop Large (1920px+) - Base styles already applied */
+@media (min-width: 1920px) {
+  :root {
+    --font-title: 79px;
+    --font-subtitle: 34px;
+    --font-typing: 22px;
+    --font-nav: 14px;
+  }
+}
+
+/* Desktop (1440px - 1919px) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+  :root {
+    --font-title: clamp(60px, 4.167vw, 79px);
+    --font-subtitle: clamp(28px, 1.944vw, 34px);
+    --font-typing: clamp(18px, 1.25vw, 22px);
+    --font-nav: clamp(13px, 0.833vw, 14px);
+  }
+}
+
+/* Desktop Small (1280px - 1439px) */
+@media (min-width: 1280px) and (max-width: 1439px) {
+  :root {
+    --font-title: clamp(52px, 4.063vw, 60px);
+    --font-subtitle: clamp(24px, 1.875vw, 28px);
+    --font-typing: clamp(17px, 1.328vw, 18px);
+    --font-nav: clamp(12px, 0.938vw, 13px);
+  }
+  
+  .work-item {
+    min-height: 80vh;
+    aspect-ratio: auto;
+  }
+}
+
+/* Laptop (1024px - 1279px) */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  :root {
+    --font-title: clamp(44px, 4.297vw, 52px);
+    --font-subtitle: clamp(20px, 1.953vw, 24px);
+    --font-typing: clamp(16px, 1.563vw, 17px);
+    --font-nav: clamp(12px, 1.172vw, 12px);
+  }
+}
+
+/* Tablet Landscape (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  :root {
+    --font-title: clamp(38px, 4.948vw, 44px);
+    --font-subtitle: clamp(18px, 2.344vw, 20px);
+    --font-typing: clamp(15px, 1.953vw, 16px);
+    --font-nav: clamp(12px, 1.563vw, 13px);
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .content {
+    margin-top: 3%;
+  }
+
+  /* .intro-logo {
+    margin-left: 10vw !important;
+  } */
+}
+
+/* Tablet Portrait (600px - 767px) */
+@media (min-width: 600px) and (max-width: 767px) {
+  :root {
+    --font-title: clamp(32px, 5.333vw, 38px);
+    --font-subtitle: clamp(16px, 2.667vw, 18px);
+    --font-typing: clamp(14px, 2.333vw, 15px);
+    --font-nav: clamp(12px, 2vw, 13px);
+  }
+}
+
+/* Mobile Large (480px - 599px) */
+@media (min-width: 480px) and (max-width: 599px) {
+  :root {
+    --font-title: clamp(28px, 5.833vw, 32px);
+    --font-subtitle: clamp(15px, 3.125vw, 16px);
+    --font-typing: clamp(13px, 2.708vw, 14px);
+    --font-nav: clamp(11px, 2.292vw, 12px);
+    --lottie-bg-scale: 1.6;
+  }
+}
+
+/* Mobile Medium (375px - 479px) */
+@media (min-width: 375px) and (max-width: 479px) {
+  :root {
+    --font-title: clamp(24px, 6.4vw, 28px);
+    --font-subtitle: clamp(13px, 3.467vw, 15px);
+    --font-typing: clamp(12px, 3.2vw, 13px);
+    --font-nav: clamp(11px, 2.933vw, 12px);
+    --lottie-bg-scale: 1.5;
+  }
+}
+
+/* Mobile Small (< 375px) */
+@media (max-width: 374px) {
+  :root {
+    --font-title: clamp(20px, 7.467vw, 24px);
+    --font-subtitle: clamp(12px, 4.267vw, 13px);
+    --font-typing: clamp(11px, 3.733vw, 12px);
+    --font-nav: clamp(10px, 3.467vw, 11px);
+    --lottie-bg-scale: 1.5;
+
+  }
+}
+
+/* Mobile Common Styles (< 768px) */
+@media (max-width: 768px) {
+  .content {
+    margin-top: -3%;
+  }
+/* 
+  .logo img {
+    width: clamp(60px, 20vw, 100px);
+  } */
+
+  #lottie {
+    transform: scale(0.6);
+    transform-origin: center;
+  }
+
+  #lottie,
+  #lottie svg {
+    overflow: visible !important;
+  }
+}
+
+/* Mobile & Tablet Combined (< 1024px) */
+@media (max-width: 1024px) {
+
+  .intro-mobile{
+    display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+  }
+
+  .intro-logo {
+    display: none;
+  }
+  
+  #mobile-overlay-blur {
+    background: rgba(0, 0, 0, 0.7) !important;
+  }
+  
+  #effect-explosion {
+    width: clamp(150px, 50%, 400px) !important;
+    height: clamp(150px, 25%, 300px) !important;
+    transform: translate(0%, 130%);
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+
+
+  .mobile-menu-btn {
+    position: fixed;
+    top: clamp(18px, 2.344vw, 22px);
+    right: clamp(18px, 2.344vw, 22px);
+    z-index: 20;
+    background: none;
+    border: none;
+    color: white;
+    font-size: clamp(24px, 3.125vw, 28px);
+    opacity: 0;
+    cursor: pointer;
+    display: block;
+    transform: translateY(-12px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s ease;
+  }
+
+  .mobile-menu-btn.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobile-menu-btn.active {
+    transform: rotate(180deg) scale(0.8);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(30px, 5.208vw, 40px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .mobile-menu.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu .nav-link {
+    font-family: "Neue Haas Grotesk Display Pro", sans-serif;
+    font-size: clamp(24px, 4.167vw, 32px);
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    transform: translateX(250px);
+    opacity: 0;
+    transition:
+      transform 0.5s ease,
+      opacity 0.5s ease;
+  }
+
+  .mobile-menu.show .nav-link {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .mobile-menu.show .nav-link:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+  .mobile-menu.show .nav-link:nth-child(2) {
+    transition-delay: 0.2s;
+  }
+  .mobile-menu.show .nav-link:nth-child(3) {
+    transition-delay: 0.3s;
+  }
+  .mobile-menu.show .nav-link:nth-child(4) {
+    transition-delay: 0.4s;
+  }
+  .mobile-menu.show .nav-link:nth-child(5) {
+    transition-delay: 0.5s;
+  }
+
+  /* Video Animation */
+  #bg-video.move {
+    animation: panVideo 30s linear infinite;
+  }
+
+  @keyframes panVideo {
+    0% {
+      object-position: 100% center;
+    }
+    100% {
+      object-position: 0% center;
+    }
+  }
+
+  #lottie-works svg {
+    scale: 1.8;
+  }
+
+  #effect-explosion-video {
+    transform: translate(5%, 80%);
+  }
+
+  .works-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(4px, 0.781vw, 6px) !important;
+    margin-bottom: clamp(4px, 0.781vw, 6px) !important;
+  }
+
+  .work-item {
+    height: 40vh;
+    aspect-ratio: auto;
+  }
+
+  .works-content {
+    gap: clamp(3px, 0.521vw, 4px);
+    padding: 10vh clamp(8px, 1.302vw, 10px) clamp(8px, 1.302vw, 10px) clamp(8px, 1.302vw, 10px) !important;
+  }
+
+  .intro {
+    margin: 0;
+    top: unset;
+    left: unset;
+    bottom: clamp(16px, 2.604vw, 20px);
+  }
+
+
+  .typing-text {
+    display: none;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
