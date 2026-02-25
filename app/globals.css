@@ -236,7 +236,7 @@ body {
 #overlay {
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   inset: 0;
   background: black;
   pointer-events: none;
@@ -248,7 +248,7 @@ body {
   position: fixed;
   inset: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }

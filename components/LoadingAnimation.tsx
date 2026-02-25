@@ -38,7 +38,6 @@ export default function LoadingAnimation() {
         preserveAspectRatio: "xMidYMid slice",
       },
     });
-
     const onEnterFrame = (e: any) => {
       const currentTime = e.currentTime;
       if (currentTime >= 365) {
@@ -81,13 +80,13 @@ export default function LoadingAnimation() {
       }
 
       // Play background video
+      video.classList.add("move");
       setTimeout(() => {
         const video = document.getElementById("bg-video") as HTMLVideoElement;
         if (video) {
           video
             .play()
             .catch((err) => console.warn("Video autoplay failed:", err));
-          video.classList.add("move");
         }
       }, 300);
 

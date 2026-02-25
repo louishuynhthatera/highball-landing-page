@@ -32,32 +32,16 @@ export default function VideoBackground() {
     const video = videoRef.current
     if (!video) return
 
-    // Set video source based on time
     const bgType = getCurrentBackground()
     video.src = VIDEO_PATH[bgType]
     video.load()
 
-    // Handle visibility change - pause when tab is hidden
-    // const handleVisibilityChange = () => {
-    //   if (document.hidden) {
-    //     video.pause()
-    //   } else {
-    //     video.play().catch(() => {})
-    //   }
-    // }
-
-    // document.addEventListener('visibilitychange', handleVisibilityChange)
-
-    // return () => {
-    //   document.removeEventListener('visibilitychange', handleVisibilityChange)
-    // }
   }, [])
 
   return (
     <video
       id="bg-video"
       ref={videoRef}
-      className="move"
       muted
       loop
       autoPlay 
