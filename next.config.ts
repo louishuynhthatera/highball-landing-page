@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const isDev = process.env.NODE_ENV !== 'production'
+
 const nextConfig = {
   reactStrictMode: false,
 
@@ -18,7 +20,7 @@ const nextConfig = {
 
   async headers() {
     return [
-      // ❗ HTML pages: KHÔNG cache
+      // ❗ HTML pages: không cache
       {
         source: '/((?!_next/static).*)',
         headers: [
@@ -29,24 +31,30 @@ const nextConfig = {
         ],
       },
 
-      // ✅ Static assets: cache mạnh
+      // ✅ Static assets: cache mạnh CHỈ khi production
+      // (filenames được content-hash nên safe)
+      // Development: no-store để tránh stale JS bundle
       {
         source: '/_next/static/(.*)',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            value: isDev
+              ? 'no-store, must-revalidate'
+              : 'public, max-age=31536000, immutable',
           },
         ],
       },
 
-      // ✅ Video / images
+      // ✅ Video / images: cache theo môi trường
       {
         source: '/(.*)\\.(mp4|webm|mov|jpg|png|svg)',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            value: isDev
+              ? 'no-store, must-revalidate'
+              : 'public, max-age=31536000, immutable',
           },
         ],
       },

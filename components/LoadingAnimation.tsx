@@ -150,7 +150,7 @@ export default function LoadingAnimation() {
     if (video) {
       video.style.clipPath = "circle(100% at 50% 50%)";
       video.style.opacity = "1";
-      video.play().catch(() => {});
+      video.play().catch(() => { });
       video.classList.add("move");
     }
 
@@ -186,7 +186,11 @@ export default function LoadingAnimation() {
         {isHomePage && !hasPlayedIntro && (
           <div id="lottie" ref={spinnerRef}></div>
         )}
-        <div id="lottieBg" ref={logoLoadingRef}></div>
+        <div
+          id="lottieBg"
+          ref={logoLoadingRef}
+          style={{ display: pathname.includes("HighBaller") ? "none" : "flex" }}
+        ></div>
         <div id="overlay"></div>
       </div>
 

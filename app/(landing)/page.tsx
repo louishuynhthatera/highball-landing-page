@@ -5,12 +5,12 @@ import { useAnimationState } from '@/hooks/useAnimationState'
 
 export default function HomePage() {
 
-  useEffect(()=>{
+  useEffect(() => {
     const lottieBg = document.getElementById("lottieBg");
-      if (lottieBg) {
-        lottieBg.style.display = "block";
-      }
-  },[])
+    if (lottieBg) {
+      lottieBg.style.display = "block";
+    }
+  }, [])
 
   return (
     <div>
