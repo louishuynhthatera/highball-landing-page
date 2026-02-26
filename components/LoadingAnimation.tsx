@@ -67,7 +67,7 @@ export default function LoadingAnimation() {
       ) {
         canvasRef.current.style.opacity = "1";
         video.style.opacity = "0";
-
+        video.classList.add("move");
         renderPixelZoom(canvasRef.current, video, currentTime);
       }
     };
@@ -80,7 +80,6 @@ export default function LoadingAnimation() {
       }
 
       // Play background video
-      video.classList.add("move");
       setTimeout(() => {
         const video = document.getElementById("bg-video") as HTMLVideoElement;
         if (video) {
@@ -149,8 +148,7 @@ export default function LoadingAnimation() {
     if (video) {
       video.style.clipPath = "circle(100% at 50% 50%)";
       video.style.opacity = "1";
-      video.play().catch(() => { });
-      video.classList.add("move");
+      video.play().catch(() => {});
     }
 
     if (canvasRef.current) {
@@ -270,6 +268,36 @@ function interpolatePixel(frame: number) {
   return pixelKeyframes[pixelKeyframes.length - 1];
 }
 
+function getObjectFitCoverSourceRect(video: HTMLVideoElement) {
+  const displayW = window.innerWidth;
+  const displayH = window.innerHeight;
+  const videoW = video.videoWidth || displayW;
+  const videoH = video.videoHeight || displayH;
+
+  const scale = Math.max(displayW / videoW, displayH / videoH);
+  const renderedW = videoW * scale;
+  const renderedH = videoH * scale;
+
+  const objPos = getComputedStyle(video).objectPosition || "50% 50%";
+  const parts = objPos.trim().split(/\s+/);
+
+  const parsePct = (val: string, total: number) =>
+    val.endsWith("%") ? parseFloat(val) / 100 : parseFloat(val) / total;
+
+  const posX = parsePct(parts[0] ?? "50%", displayW);
+  const posY = parsePct(parts[1] ?? "50%", displayH);
+
+  const offsetX = (renderedW - displayW) * posX;
+  const offsetY = (renderedH - displayH) * posY;
+
+  return {
+    sx: offsetX / scale,
+    sy: offsetY / scale,
+    sw: displayW / scale,
+    sh: displayH / scale,
+  };
+}
+
 function renderPixelZoom(
   canvas: HTMLCanvasElement,
   video: HTMLVideoElement,
@@ -288,7 +316,8 @@ function renderPixelZoom(
 
   const ctx = canvas.getContext("2d");
   if (ctx && video.readyState >= 2) {
-    ctx.drawImage(video, 0, 0, w, h);
+    const { sx, sy, sw, sh } = getObjectFitCoverSourceRect(video);
+    ctx.drawImage(video, sx, sy, sw, sh, 0, 0, w, h);
   }
 
   const clipPath = `circle(${radius}% at 50% 50%)`;
