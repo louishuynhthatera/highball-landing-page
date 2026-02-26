@@ -7,6 +7,7 @@ import './highballer.css'
 import { HIGHBALLER_ITEMS } from '@/lib/mock-data'
 import HighBallerCard from '@/components/highballer/HighBallerCard'
 import HighBallerFooter from '@/components/highballer/HighBallerFooter'
+import Image from 'next/image'
 
 export default function HighBallerPage() {
     const { setShowHeader } = useAnimationState()
@@ -25,7 +26,14 @@ export default function HighBallerPage() {
     return (
         <div className="highballer-container">
             <header className="highballer-header">
-                <h1 className="en"><em>HighBaller</em></h1>
+                <Image
+                    src="/images/logos/logo_highball.png"
+                    alt="HighBaller"
+                    width={350}
+                    height={100}
+                    className="hb-header-logo"
+                    priority
+                />
             </header>
 
 
