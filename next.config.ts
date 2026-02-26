@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-const isDev = process.env.NODE_ENV !== 'production'
 
 const nextConfig = {
   reactStrictMode: false,
@@ -39,9 +38,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: isDev
-              ? 'no-store, must-revalidate'
-              : 'public, max-age=31536000, immutable',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },
@@ -52,9 +49,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: isDev
-              ? 'no-store, must-revalidate'
-              : 'public, max-age=31536000, immutable',
+            value: 'public, max-age=31536000, immutable',
           },
         ],
       },

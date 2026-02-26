@@ -60,6 +60,7 @@
 .highballer-main {
     width: 100%;
     padding: 0 10px;
+    margin: 0 auto;
 }
 
 .highballer-header {
@@ -75,6 +76,14 @@
     letter-spacing: 1px;
     color: var(--white);
     margin: 0;
+}
+
+.hb-header-logo {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    width: clamp(200px, 40vw, 350px);
 }
 
 
@@ -116,7 +125,7 @@
     top: 15px;
     left: 15px;
     font-family: var(--font-en);
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--white);
     letter-spacing: 0.5px;
@@ -156,7 +165,7 @@
     color: var(--white);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 2px;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
     letter-spacing: -0.5px;
     z-index: 2;
@@ -164,8 +173,8 @@
 
 .hb-card-number svg,
 .hb-card-number .hb-icon-img {
-    width: 22px;
-    height: 22px;
+    height: 0.8em;
+    width: auto;
     object-fit: contain;
 }
 
@@ -190,27 +199,12 @@
     font-size: clamp(2rem, 5vw, 3.2rem);
 }
 
-.hb-card-hero .hb-card-number svg,
-.hb-card-hero .hb-card-number .hb-icon-img {
-    width: 32px;
-    height: 32px;
-}
-
 .hb-card-thumbnail .hb-card-title {
     font-size: clamp(0.8rem, 1.4vw, 1rem);
-    top: auto;
-    bottom: 45px;
-    transform: none;
 }
 
 .hb-card-thumbnail .hb-card-number {
     font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-}
-
-.hb-card-thumbnail .hb-card-number svg,
-.hb-card-thumbnail .hb-card-number .hb-icon-img {
-    width: 16px;
-    height: 16px;
 }
 
 /* --- GRID LAYOUTS --- */
