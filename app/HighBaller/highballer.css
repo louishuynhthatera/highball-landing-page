@@ -38,6 +38,7 @@
     --accent: #f5c842;
     --card-overlay: rgba(0, 0, 0, 0.45);
     --radius: 0px;
+    --hb-gap: 10px;
     --font-en: 'NeueHaasGrotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --font-ja: 'RyoGothic', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
 
@@ -59,13 +60,17 @@
 
 .highballer-main {
     width: 100%;
-    padding: 0 10px;
+    padding: 0 var(--hb-gap);
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--hb-gap);
 }
 
 .highballer-header {
     text-align: center;
-    padding: 0 0 40px 0;
+    padding: 0 0 var(--hb-gap) 0;
+    line-height: 0;
 }
 
 .highballer-header h1 {
@@ -80,10 +85,10 @@
 
 .hb-header-logo {
     display: block;
-    margin: 0 auto;
+    margin: 20px auto;
     max-width: 100%;
     height: auto;
-    width: clamp(200px, 40vw, 350px);
+    width: clamp(200px, 40vw, 300px);
 }
 
 
@@ -209,34 +214,42 @@
 
 /* --- GRID LAYOUTS --- */
 @media (min-width: 820px) {
+
+    /* Grid containers: no fixed height — auto-size to card content */
     .hb-grid-top {
         display: grid;
         grid-template-columns: 1fr 30%;
-        grid-template-rows: auto auto;
-        gap: 4px;
-        margin-bottom: 4px;
+        gap: var(--hb-gap);
+        align-items: stretch;
     }
 
+    /* Hero card defines the row height */
     .hb-card-hero {
-        grid-row: 1 / 3;
-        height: 60vh;
-        min-height: 480px;
+        height: 500px;
     }
 
+    /* Secondary pair fills the same row height as hero, split evenly with gap */
+    .hb-secondary-pair {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        gap: var(--hb-gap);
+        height: 500px;
+    }
+
+    /* Secondary cards fill their grid cell — no explicit height needed */
     .hb-card-secondary {
-        height: calc(30vh + 2px);
-        min-height: 238px;
+        min-height: 0;
     }
 
+    /* Bottom grid: cards each have an explicit height, container auto-sizes */
     .hb-grid-bottom {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 4px;
+        gap: var(--hb-gap);
     }
 
     .hb-grid-bottom .hb-card {
-        height: 25vh;
-        min-height: 180px;
+        height: 160px;
     }
 }
 
@@ -244,8 +257,7 @@
     .hb-grid-top {
         display: grid;
         grid-template-columns: 1fr;
-        gap: 4px;
-        margin-bottom: 4px;
+        gap: var(--hb-gap);
     }
 
     .hb-card-hero {
@@ -255,7 +267,7 @@
     .hb-secondary-pair {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 4px;
+        gap: var(--hb-gap);
     }
 
     .hb-card-secondary {
@@ -265,7 +277,7 @@
     .hb-grid-bottom {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 4px;
+        gap: var(--hb-gap);
     }
 
     .hb-grid-bottom .hb-card {
@@ -275,10 +287,9 @@
 
 @media (max-width: 599px) {
     .hb-grid-top {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        margin-bottom: 4px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--hb-gap);
     }
 
     .hb-card-hero {
@@ -286,9 +297,9 @@
     }
 
     .hb-secondary-pair {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        gap: var(--hb-gap);
     }
 
     .hb-card-secondary {
@@ -298,7 +309,7 @@
     .hb-grid-bottom {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 4px;
+        gap: var(--hb-gap);
     }
 
     .hb-grid-bottom .hb-card {
@@ -309,7 +320,7 @@
 /* --- FOOTER --- */
 .hb-footer {
     width: 100%;
-    padding: 40px 10px;
+    padding: 40px var(--hb-gap);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -359,7 +370,7 @@
 
 @media (max-width: 480px) {
     .hb-footer {
-        padding: 30px 10px;
+        padding: 30px var(--hb-gap);
         gap: 10px;
     }
 
@@ -381,7 +392,7 @@
 
 @media (max-width: 340px) {
     .hb-footer {
-        padding: 25px 8px;
+        padding: 25px var(--hb-gap);
         gap: 8px;
     }
 

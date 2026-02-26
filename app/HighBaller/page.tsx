@@ -29,7 +29,7 @@ export default function HighBallerPage() {
                 <Image
                     src="/images/logos/logo_highball.png"
                     alt="HighBaller"
-                    width={350}
+                    width={300}
                     height={100}
                     className="hb-header-logo"
                     priority
