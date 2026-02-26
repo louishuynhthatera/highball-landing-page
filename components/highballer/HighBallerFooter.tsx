@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function HighBallerFooter() {
     return (
@@ -15,15 +16,10 @@ export default function HighBallerFooter() {
                     className="hb-cta-img"
                 />
             </button>
-            <div className="hb-footer-logo">
-                <Image
-                    src="/images/logos/highball_icon_logo.png"
-                    alt="HighBaller Logo"
-                    width={32}
-                    height={32}
-                    className="hb-footer-icon-img"
-                />
-                HighBall
+            <div className="logo">
+                <Link href="/" >
+                    <img src="/images/Logo.svg" alt="Logo" />
+                </Link>
             </div>
         </footer>
     );

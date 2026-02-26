@@ -14,7 +14,7 @@ export default function HighBallerCard({ item, variant = 'thumbnail', className 
     return (
         <Link href={href} className={`hb-card hb-card-${variant} ${className}`}>
             <img src={item.image} alt={item.title} />
-            <div className="hb-card-overlay"></div>
+
 
             <div className="hb-card-meta">
                 {variant === 'hero' && <span>Latest Update: {item.date}</span>}

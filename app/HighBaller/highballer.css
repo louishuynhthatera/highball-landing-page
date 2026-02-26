@@ -118,12 +118,6 @@
     transform: scale(1.04);
 }
 
-.hb-card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.15) 60%, transparent 100%);
-    pointer-events: none;
-}
 
 .hb-card-meta {
     position: absolute;
@@ -349,23 +343,10 @@
     display: block;
 }
 
-
-.hb-footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-en);
-    font-weight: 700;
-    font-size: 1.4rem;
-    letter-spacing: 1px;
-    color: var(--white);
-}
-
-.hb-footer-logo svg,
-.hb-footer-logo .hb-footer-icon-img {
-    width: 32px;
+.hb-footer .logo img {
     height: 32px;
-    object-fit: contain;
+    width: auto;
+    display: block;
 }
 
 @media (max-width: 480px) {
@@ -374,14 +355,7 @@
         gap: 10px;
     }
 
-    .hb-footer-logo {
-        font-size: 1.1rem;
-        gap: 6px;
-    }
-
-    .hb-footer-logo svg,
-    .hb-footer-logo .hb-footer-icon-img {
-        width: 24px;
+    .hb-footer .logo img {
         height: 24px;
     }
 
@@ -396,14 +370,7 @@
         gap: 8px;
     }
 
-    .hb-footer-logo {
-        font-size: 0.95rem;
-        letter-spacing: 0.5px;
-    }
-
-    .hb-footer-logo svg,
-    .hb-footer-logo .hb-footer-icon-img {
-        width: 20px;
+    .hb-footer .logo img {
         height: 20px;
     }
 
