@@ -31,7 +31,7 @@ export default function HighBallerCard({ item, variant = 'thumbnail', className 
                 {item.number}
             </div>
 
-            {item.author && (
+            {item.author && variant !== 'thumbnail' && (
                 <div className="hb-card-author">
                     Author: {item.author}
                 </div>
