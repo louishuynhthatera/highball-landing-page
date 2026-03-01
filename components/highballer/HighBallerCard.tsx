@@ -22,11 +22,14 @@ export default function HighBallerCard({ item, variant = 'thumbnail', className 
 
             </div>
 
-            <div className="hb-card-title">
-                {item.title}
-            </div>
+            {variant !== 'thumbnail' && (
+                <div className="hb-card-title">
+                    {item.title}
+                </div>
+            )}
 
             <div className="hb-card-number">
+
                 <img src="/images/logos/highball_icon_logo.png" alt="HighBaller Icon" className="hb-icon-img" />
                 {item.number}
             </div>
