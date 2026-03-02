@@ -224,17 +224,11 @@
         align-items: stretch;
     }
 
-    /* Hero card defines the row height */
-    .hb-card-hero {
-        height: 500px;
-    }
-
     /* Secondary pair fills the same row height as hero, split evenly with gap */
     .hb-secondary-pair {
         display: grid;
         grid-template-rows: 1fr 1fr;
         gap: var(--hb-gap);
-        height: 500px;
     }
 
     /* Secondary cards fill their grid cell — no explicit height needed */
@@ -248,10 +242,6 @@
         grid-template-columns: repeat(5, 1fr);
         gap: var(--hb-gap);
     }
-
-    .hb-grid-bottom .hb-card {
-        height: 160px;
-    }
 }
 
 @media (min-width: 600px) and (max-width: 819px) {
@@ -261,28 +251,16 @@
         gap: var(--hb-gap);
     }
 
-    .hb-card-hero {
-        height: 40vh;
-    }
-
     .hb-secondary-pair {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: var(--hb-gap);
     }
 
-    .hb-card-secondary {
-        height: 25vh;
-    }
-
     .hb-grid-bottom {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: var(--hb-gap);
-    }
-
-    .hb-grid-bottom .hb-card {
-        height: 20vh;
     }
 }
 
@@ -293,18 +271,10 @@
         gap: var(--hb-gap);
     }
 
-    .hb-card-hero {
-        height: 30vh;
-    }
-
     .hb-secondary-pair {
         display: grid;
         grid-template-rows: 1fr 1fr;
         gap: var(--hb-gap);
-    }
-
-    .hb-card-secondary {
-        height: 25vh;
     }
 
     .hb-grid-bottom {
@@ -312,11 +282,8 @@
         grid-template-columns: 1fr 1fr;
         gap: var(--hb-gap);
     }
-
-    .hb-grid-bottom .hb-card {
-        height: 15vh;
-    }
 }
+
 
 /* --- FOOTER --- */
 .hb-footer {
@@ -402,70 +369,19 @@
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
-        font-size: 17.74px;
+        font-size: 16px;
     }
 
     .hb-card-hero .hb-card-title {
-        font-size: 30.77px;
+        font-size: 18px;
     }
 
     .hb-card-hero .hb-card-author {
-        font-size: 13.01px;
+        font-size: 14px;
     }
 
     .hb-card-hero .hb-card-number {
-        font-size: 40.59px;
-    }
-
-    /* SECONDARY CARDS */
-    .hb-card-secondary .hb-card-meta {
-        font-size: 13.98px;
-    }
-
-    .hb-card-secondary .hb-card-title {
-        font-size: 14.78px;
-    }
-
-    .hb-card-secondary .hb-card-author {
-        font-size: 13.01px;
-    }
-
-    .hb-card-secondary .hb-card-number {
-        font-size: 40.59px;
-    }
-
-    /* BOTTOM CARDS (THUMBNAIL) */
-    .hb-card-thumbnail .hb-card-meta {
-        font-size: 11.46px;
-    }
-
-    .hb-card-thumbnail .hb-card-title {
-        font-size: 10.18px;
-    }
-
-    .hb-card-thumbnail .hb-card-number {
-        font-size: 23.54px;
-    }
-}
-
-/* --- RESPONSIVE ADJUSTMENTS FOR 768 TABLET --- */
-@media (min-width: 768px) and (max-width: 819px) {
-
-    /* HERO CARD */
-    .hb-card-hero .hb-card-meta {
-        font-size: 20.19px;
-    }
-
-    .hb-card-hero .hb-card-title {
-        font-size: 28.62px;
-    }
-
-    .hb-card-hero .hb-card-author {
-        font-size: 21.61px;
-    }
-
-    .hb-card-hero .hb-card-number {
-        font-size: 43.8px;
+        font-size: 41px;
     }
 
     /* SECONDARY CARDS */
@@ -474,28 +390,105 @@
     }
 
     .hb-card-secondary .hb-card-title {
-        font-size: 14.81px;
+        font-size: 15px;
     }
 
     .hb-card-secondary .hb-card-author {
-        font-size: 13.03px;
+        font-size: 13px;
     }
 
     .hb-card-secondary .hb-card-number {
-        font-size: 40.65px;
+        font-size: 41px;
     }
 
     /* BOTTOM CARDS (THUMBNAIL) */
     .hb-card-thumbnail .hb-card-meta {
-        font-size: 15.47px;
+        font-size: 11px;
     }
 
     .hb-card-thumbnail .hb-card-title {
-        font-size: 13.75px;
+        font-size: 10px;
     }
 
     .hb-card-thumbnail .hb-card-number {
-        font-size: 31.8px;
+        font-size: 24px;
+    }
+
+    /* HEIGHTS */
+    .hb-card-hero {
+        height: 206px;
+    }
+
+    .hb-card-secondary {
+        height: 206px;
+    }
+
+    .hb-grid-bottom .hb-card {
+        height: 101px;
+    }
+}
+
+/* --- RESPONSIVE ADJUSTMENTS FOR 768 TABLET --- */
+@media (min-width: 768px) and (max-width: 819px) {
+
+    /* HERO CARD */
+    .hb-card-hero .hb-card-meta {
+        font-size: 20px;
+    }
+
+    .hb-card-hero .hb-card-title {
+        font-size: 29px;
+    }
+
+    .hb-card-hero .hb-card-author {
+        font-size: 22px;
+    }
+
+    .hb-card-hero .hb-card-number {
+        font-size: 44px;
+    }
+
+    /* SECONDARY CARDS */
+    .hb-card-secondary .hb-card-meta {
+        font-size: 14px;
+    }
+
+    .hb-card-secondary .hb-card-title {
+        font-size: 15px;
+    }
+
+    .hb-card-secondary .hb-card-author {
+        font-size: 13px;
+    }
+
+    .hb-card-secondary .hb-card-number {
+        font-size: 41px;
+    }
+
+    /* BOTTOM CARDS (THUMBNAIL) */
+    .hb-card-thumbnail .hb-card-meta {
+        font-size: 15px;
+    }
+
+    .hb-card-thumbnail .hb-card-title {
+        font-size: 14px;
+    }
+
+    .hb-card-thumbnail .hb-card-number {
+        font-size: 32px;
+    }
+
+    /* HEIGHTS */
+    .hb-card-hero {
+        height: 414px;
+    }
+
+    .hb-card-secondary {
+        height: 207px;
+    }
+
+    .hb-grid-bottom .hb-card {
+        height: 137px;
     }
 }
 
@@ -504,49 +497,62 @@
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
-        font-size: 16.33px;
+        font-size: 16px;
     }
 
     .hb-card-hero .hb-card-title {
-        font-size: 30.77px;
+        font-size: 31px;
     }
 
     .hb-card-hero .hb-card-author {
-        font-size: 23.24px;
+        font-size: 23px;
     }
 
     .hb-card-hero .hb-card-number {
-        font-size: 47.1px;
+        font-size: 47px;
     }
 
     /* SECONDARY CARDS */
     .hb-card-secondary .hb-card-meta {
-        font-size: 15.05px;
+        font-size: 15px;
     }
 
     .hb-card-secondary .hb-card-title {
-        font-size: 15.92px;
+        font-size: 16px;
     }
 
     .hb-card-secondary .hb-card-author {
-        font-size: 14.01px;
+        font-size: 14px;
     }
 
     .hb-card-secondary .hb-card-number {
-        font-size: 43.71px;
+        font-size: 44px;
     }
 
     /* BOTTOM CARDS (THUMBNAIL) */
     .hb-card-thumbnail .hb-card-meta {
-        font-size: 16.64px;
+        font-size: 17px;
     }
 
     .hb-card-thumbnail .hb-card-title {
-        font-size: 14.78px;
+        font-size: 15px;
     }
 
     .hb-card-thumbnail .hb-card-number {
-        font-size: 34.19px;
+        font-size: 34px;
+    }
+
+    /* HEIGHTS */
+    .hb-card-hero {
+        height: 445px;
+    }
+
+    .hb-card-secondary {
+        height: 222px;
+    }
+
+    .hb-grid-bottom .hb-card {
+        height: 147px;
     }
 }
 
@@ -555,99 +561,189 @@
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
-        font-size: 17.2px;
+        font-size: 17px;
     }
 
     .hb-card-hero .hb-card-title {
-        font-size: 32.42px;
+        font-size: 32px;
     }
 
     .hb-card-hero .hb-card-author {
-        font-size: 24.48px;
+        font-size: 24px;
     }
 
     .hb-card-hero .hb-card-number {
-        font-size: 49.62px;
+        font-size: 50px;
     }
 
     /* SECONDARY CARDS */
     .hb-card-secondary .hb-card-meta {
-        font-size: 15.64px;
+        font-size: 16px;
     }
 
     .hb-card-secondary .hb-card-title {
-        font-size: 16.54px;
+        font-size: 17px;
     }
 
     .hb-card-secondary .hb-card-author {
-        font-size: 14.55px;
+        font-size: 15px;
     }
 
     .hb-card-secondary .hb-card-number {
-        font-size: 45.41px;
+        font-size: 45px;
     }
 
     /* BOTTOM CARDS (THUMBNAIL) */
     .hb-card-thumbnail .hb-card-meta {
-        font-size: 15.67px;
+        font-size: 16px;
     }
 
     .hb-card-thumbnail .hb-card-title {
-        font-size: 13.92px;
+        font-size: 14px;
     }
 
     .hb-card-thumbnail .hb-card-number {
-        font-size: 32.2px;
+        font-size: 32px;
+    }
+
+    /* HEIGHTS */
+    .hb-card-hero {
+        height: 469px;
+    }
+
+    .hb-secondary-pair {
+        height: 469px;
+    }
+
+    .hb-grid-bottom .hb-card {
+        height: 138px;
     }
 }
 
 /* --- RESPONSIVE ADJUSTMENTS FOR 1440 DESKTOP --- */
-@media (min-width: 1440px) {
+@media (min-width: 1440px) and (max-width: 1919px) {
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
-        font-size: 19.38px;
+        font-size: 19px;
     }
 
     .hb-card-hero .hb-card-title {
-        font-size: 36.52px;
+        font-size: 37px;
     }
 
     .hb-card-hero .hb-card-author {
-        font-size: 27.58px;
+        font-size: 28px;
     }
 
     .hb-card-hero .hb-card-number {
-        font-size: 55.9px;
+        font-size: 56px;
     }
 
     /* SECONDARY CARDS */
     .hb-card-secondary .hb-card-meta {
-        font-size: 17.62px;
+        font-size: 18px;
     }
 
     .hb-card-secondary .hb-card-title {
-        font-size: 18.63px;
+        font-size: 19px;
     }
 
     .hb-card-secondary .hb-card-author {
-        font-size: 16.4px;
+        font-size: 16px;
     }
 
     .hb-card-secondary .hb-card-number {
-        font-size: 51.16px;
+        font-size: 51px;
     }
 
     /* BOTTOM CARDS (THUMBNAIL) */
     .hb-card-thumbnail .hb-card-meta {
-        font-size: 17.65px;
+        font-size: 18px;
     }
 
     .hb-card-thumbnail .hb-card-title {
-        font-size: 15.68px;
+        font-size: 16px;
     }
 
     .hb-card-thumbnail .hb-card-number {
-        font-size: 36.27px;
+        font-size: 36px;
+    }
+
+    /* HEIGHTS */
+    .hb-card-hero {
+        height: 528px;
+    }
+
+    .hb-secondary-pair {
+        height: 528px;
+    }
+
+    .hb-grid-bottom .hb-card {
+        height: 156px;
+    }
+}
+
+/* --- RESPONSIVE ADJUSTMENTS FOR 1920 DESKTOP --- */
+@media (min-width: 1920px) {
+
+    /* HERO CARD */
+    .hb-card-hero .hb-card-meta {
+        font-size: 26px;
+    }
+
+    .hb-card-hero .hb-card-title {
+        font-size: 49px;
+    }
+
+    .hb-card-hero .hb-card-author {
+        font-size: 37px;
+    }
+
+    .hb-card-hero .hb-card-number {
+        font-size: 75px;
+    }
+
+    /* SECONDARY CARDS */
+    .hb-card-secondary .hb-card-meta {
+        font-size: 24px;
+    }
+
+    .hb-card-secondary .hb-card-title {
+        font-size: 25px;
+    }
+
+    .hb-card-secondary .hb-card-author {
+        font-size: 22px;
+    }
+
+    .hb-card-secondary .hb-card-number {
+        font-size: 69px;
+    }
+
+    /* BOTTOM CARDS (THUMBNAIL) */
+    .hb-card-thumbnail .hb-card-meta {
+        font-size: 24px;
+    }
+
+    .hb-card-thumbnail .hb-card-title {
+        font-size: 21px;
+    }
+
+    .hb-card-thumbnail .hb-card-number {
+        font-size: 54px;
+    }
+
+    /* HEIGHTS */
+    .hb-card-hero {
+        height: 708px;
+    }
+
+    .hb-secondary-pair {
+        height: 708px;
+    }
+
+    .hb-grid-bottom .hb-card {
+        height: 208px;
     }
 }
