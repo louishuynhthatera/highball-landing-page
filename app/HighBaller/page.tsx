@@ -13,13 +13,47 @@ import HighBallerLogo from '@/components/highballer/HighBallerLogo'
 export default function HighBallerPage() {
     const { setShowHeader } = useAnimationState()
     const contentRef = useRef<HTMLDivElement>(null)
+    const headerRef = useRef<HTMLElement>(null)
+    const [isHeaderFixed, setIsHeaderFixed] = useState(false)
+    const [headerHeight, setHeaderHeight] = useState(0)
+    const [threshold, setThreshold] = useState<number | null>(null)
 
     useEffect(() => {
         // Ensure header is shown if we navigate directly or from home
         setShowHeader(true)
     }, [setShowHeader])
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (threshold === null || !headerRef.current) return;
+
+            if (window.scrollY >= threshold) {
+                if (!isHeaderFixed) {
+                    setIsHeaderFixed(true);
+                    setHeaderHeight(headerRef.current.offsetHeight);
+                }
+            } else {
+                if (isHeaderFixed) {
+                    setIsHeaderFixed(false);
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [isHeaderFixed, threshold]);
+
     const handleSlideUp = () => {
+        // After logo slides up, calculate exactly when it should stick
+        const logoElement = document.querySelector('.hb-header-logo');
+        if (logoElement) {
+            const logoRect = logoElement.getBoundingClientRect();
+            const currentScroll = window.scrollY;
+            const menuPaddingTop = 16;
+            // threshold = current position - desired position + current scroll
+            setThreshold(logoRect.top + currentScroll - menuPaddingTop);
+        }
+
         if (contentRef.current) {
             gsap.to(contentRef.current, {
                 opacity: 1,
@@ -42,7 +76,10 @@ export default function HighBallerPage() {
 
     return (
         <div className="highballer-container">
-            <header className="highballer-header">
+            <header
+                className={`highballer-header ${isHeaderFixed ? 'header-sticky' : ''}`}
+                ref={headerRef}
+            >
                 <HighBallerLogo
                     onSlideUp={handleSlideUp}
                     className="hb-header-logo"
@@ -52,7 +89,11 @@ export default function HighBallerPage() {
             </header>
 
 
-            <div className='highballer-main' ref={contentRef}>
+            <div
+                className='highballer-main'
+                ref={contentRef}
+                style={isHeaderFixed ? { marginTop: `${headerHeight}px` } : {}}
+            >
                 {/* TOP GRID */}
                 <div className="hb-grid-top">
                     {heroItem && (
