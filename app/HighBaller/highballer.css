@@ -46,7 +46,7 @@
     color: var(--white);
     min-height: 100vh;
     padding-bottom: 0px;
-    padding-top: 100px;
+    padding-top: 40px;
     width: 100vw;
     margin: 0;
     position: relative;
@@ -84,11 +84,18 @@
 }
 
 .hb-header-logo {
-    display: block;
+    display: inline-block;
     margin: 20px auto;
     max-width: 100%;
     height: auto;
-    width: clamp(200px, 40vw, 300px);
+    width: clamp(200px, 20vw, 300px);
+}
+
+@media (max-width: 767px) {
+    .hb-header-logo {
+        width: 134px !important;
+        margin: 15px auto;
+    }
 }
 
 
