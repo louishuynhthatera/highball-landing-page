@@ -1,9 +1,7 @@
-
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  
+
   --font-title: clamp(28px, 4.115vw, 79px);
   --font-subtitle: clamp(16px, 1.77vw, 34px);
   --font-typing: clamp(14px, 1.146vw, 22px);
@@ -94,7 +92,7 @@ body {
 }
 
 .intro-mobile {
-  display: none; 
+  display: none;
   position: fixed;
   bottom: clamp(20px, 4vh, 60px);
   left: 0;
@@ -180,7 +178,7 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-   scrollbar-width: none; 
+  scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
@@ -353,7 +351,7 @@ body {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  padding: clamp(16px, 1.25vw, 24px) clamp(20px, 1.667vw, 32px) 0 clamp(20px, 1.667vw, 32px);
+  padding: clamp(16px, 1.25vw, 24px) clamp(20px, 1.667vw, 32px) clamp(16px, 1.25vw, 24px) clamp(20px, 1.667vw, 32px);
   z-index: 11;
   transform: translateY(-12px);
   transition:
@@ -473,7 +471,7 @@ body {
     --font-typing: clamp(17px, 1.328vw, 18px);
     --font-nav: clamp(12px, 0.938vw, 13px);
   }
-  
+
   .work-item {
     min-height: 80vh;
     aspect-ratio: auto;
@@ -561,7 +559,8 @@ body {
   .content {
     margin-top: -3%;
   }
-/* 
+
+  /* 
   .logo img {
     width: clamp(60px, 20vw, 100px);
   } */
@@ -580,21 +579,21 @@ body {
 /* Mobile & Tablet Combined (< 1024px) */
 @media (max-width: 1024px) {
 
-  .intro-mobile{
+  .intro-mobile {
     display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
 
   .intro-logo {
     display: none;
   }
-  
+
   #mobile-overlay-blur {
     background: rgba(0, 0, 0, 0.7) !important;
   }
-  
+
   #effect-explosion {
     width: clamp(150px, 50%, 400px) !important;
     height: clamp(150px, 25%, 300px) !important;
@@ -675,15 +674,19 @@ body {
   .mobile-menu.show .nav-link:nth-child(1) {
     transition-delay: 0.1s;
   }
+
   .mobile-menu.show .nav-link:nth-child(2) {
     transition-delay: 0.2s;
   }
+
   .mobile-menu.show .nav-link:nth-child(3) {
     transition-delay: 0.3s;
   }
+
   .mobile-menu.show .nav-link:nth-child(4) {
     transition-delay: 0.4s;
   }
+
   .mobile-menu.show .nav-link:nth-child(5) {
     transition-delay: 0.5s;
   }
@@ -697,6 +700,7 @@ body {
     0% {
       object-position: 100% center;
     }
+
     100% {
       object-position: 0% center;
     }
@@ -741,6 +745,7 @@ body {
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
