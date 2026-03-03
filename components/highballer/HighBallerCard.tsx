@@ -22,11 +22,9 @@ export default function HighBallerCard({ item, variant = 'thumbnail', className 
 
             </div>
 
-            {variant !== 'thumbnail' && (
-                <div className="hb-card-title">
-                    {item.title}
-                </div>
-            )}
+            <div className="hb-card-title">
+                {item.title}
+            </div>
 
             <div className="hb-card-number">
 

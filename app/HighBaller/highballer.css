@@ -32,6 +32,20 @@
     font-family: var(--font-ja) !important;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html,
+body {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
 .highballer-container {
     --bg-color: #0b0c0c;
     --white: #ffffff;
@@ -65,6 +79,8 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--hb-gap);
+    opacity: 0;
+    /* Hidden by default for logo animation */
 }
 
 .highballer-header {
@@ -242,7 +258,7 @@
     /* Grid containers: no fixed height — auto-size to card content */
     .hb-grid-top {
         display: grid;
-        grid-template-columns: 1fr 30%;
+        grid-template-columns: 1fr 33%;
         gap: var(--hb-gap);
         align-items: stretch;
     }
@@ -570,8 +586,8 @@
         height: 445px;
     }
 
-    .hb-card-secondary {
-        height: 222px;
+    .hb-secondary-pair {
+        height: 445px;
     }
 
     .hb-grid-bottom .hb-card {
