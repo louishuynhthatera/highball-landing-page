@@ -19,8 +19,20 @@ export default function HighBallerPage() {
     const [threshold, setThreshold] = useState<number | null>(null)
 
     useEffect(() => {
+        // Force scroll to top on reload/mount
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
         // Ensure header is shown if we navigate directly or from home
         setShowHeader(true)
+
+        return () => {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'auto';
+            }
+        };
     }, [setShowHeader])
 
     useEffect(() => {

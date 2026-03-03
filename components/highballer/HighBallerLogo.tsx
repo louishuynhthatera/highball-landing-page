@@ -52,14 +52,14 @@ const HighBallerLogo = ({
                     {
                         x: deltaX,
                         y: deltaY,
-                        scale: 1.3,
+                        scale: 1.2,
                         opacity: 0,
-                        filter: 'blur(15px)'
+                        filter: 'blur(20px)'
                     },
                     {
                         opacity: 1,
                         filter: 'blur(0px)',
-                        duration: 0.8,
+                        duration: 0.9,
                         ease: "power2.out"
                     }
                 )
@@ -67,13 +67,14 @@ const HighBallerLogo = ({
                         x: 0,
                         y: 0,
                         scale: 1,
-                        duration: 1.2,
-                        ease: "power4.inOut",
-                        delay: 0.3
-                    })
-                    .add(() => {
-                        if (onSlideUp) onSlideUp();
-                    }, "-=0.4");
+                        duration: 1.6,
+                        ease: "expo.out",
+                        force3D: true,
+                        onComplete: () => {
+                            gsap.set(logo, { clearProps: "transform,filter" });
+                            if (onSlideUp) onSlideUp();
+                        }
+                    }, "-=0.3");
             };
 
             // Use a small timeout or requestAnimationFrame to ensure the browser has laid out the header
