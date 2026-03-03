@@ -3,25 +3,80 @@
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { HIGHBALLER_ITEMS } from '@/lib/mock-data';
 import HighBallerCard from '@/components/highballer/HighBallerCard';
 import HighBallerFooter from '@/components/highballer/HighBallerFooter';
 import HighBallerLogo from '@/components/highballer/HighBallerLogo';
+import { useAnimationState } from '@/hooks/useAnimationState';
 import '../highballer.css';
 import '../highball-post.css';
 
 export default function PostDetailPage() {
     const { id } = useParams();
+    const { setShowHeader } = useAnimationState();
     const currentItem = HIGHBALLER_ITEMS.find(item => item.id === id) || HIGHBALLER_ITEMS[0];
     const contentRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLElement>(null);
+
+    const [isHeaderFixed, setIsHeaderFixed] = useState(false)
+    const [headerHeight, setHeaderHeight] = useState(0)
+    const [threshold, setThreshold] = useState<number | null>(null)
 
     // Get other items for the sidebar/bottom list (excluding current and 'more')
-    const otherItems = HIGHBALLER_ITEMS.filter(item => item.id !== id && !item.isMore);
+    const otherItemsRaw = HIGHBALLER_ITEMS.filter(item => item.id !== id && !item.isMore);
     const moreItem = HIGHBALLER_ITEMS.find(item => item.isMore);
+    const otherItems = otherItemsRaw.slice(0, 9); // Show up to 9 other items
+
+    useEffect(() => {
+        // Force scroll to top on reload/mount
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+        // Ensure header is shown if we navigate directly or from home
+        setShowHeader(true)
+
+        return () => {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'auto';
+            }
+        };
+    }, [setShowHeader])
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (threshold === null || !headerRef.current) return;
+
+            if (window.scrollY >= threshold) {
+                if (!isHeaderFixed) {
+                    setIsHeaderFixed(true);
+                    setHeaderHeight(headerRef.current.offsetHeight);
+                }
+            } else {
+                if (isHeaderFixed) {
+                    setIsHeaderFixed(false);
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [isHeaderFixed, threshold]);
 
     const handleSlideUp = () => {
+        // After logo slides up, calculate exactly when it should stick
+        const logoElement = document.querySelector('.hb-header-logo');
+        if (logoElement) {
+            const logoRect = logoElement.getBoundingClientRect();
+            const currentScroll = window.scrollY;
+            const menuPaddingTop = 16;
+            // threshold = current position - desired position + current scroll
+            setThreshold(logoRect.top + currentScroll - menuPaddingTop);
+        }
+
         if (contentRef.current) {
             gsap.to(contentRef.current, {
                 opacity: 1,
@@ -38,19 +93,25 @@ export default function PostDetailPage() {
     }, [])
 
     return (
-        <div className="highballer-container" style={{ paddingTop: '0' }}>
+        <div className="highballer-container">
             {/* SITE HEADER */}
-            <header className="highballer-header" style={{ position: 'sticky', top: 0, zIndex: 200, background: '#0b0c0c', borderBottom: '1px solid rgba(255, 255, 255, 0.12)', padding: '18px 24px 16px', textAlign: 'center' }}>
+            <header
+                className={`highballer-header ${isHeaderFixed ? 'header-sticky' : ''}`}
+                ref={headerRef}
+            >
                 <HighBallerLogo
                     onSlideUp={handleSlideUp}
                     className="hb-header-logo"
-                    width={200}
-                    height={60}
-                    style={{ height: 'auto' }}
+                    width={300}
+                    height={100}
                 />
             </header>
 
-            <div ref={contentRef}>
+            <div
+                className='highballer-main'
+                ref={contentRef}
+                style={isHeaderFixed ? { marginTop: `${headerHeight}px` } : {}}
+            >
                 {/* HERO */}
                 <div className="hb-post-hero">
                     <div className="hb-post-hero-bg">
@@ -65,16 +126,14 @@ export default function PostDetailPage() {
                         )}
                     </div>
                     <div className="hb-post-hero-ov"></div>
-                    <div className="hb-post-hero-num">
+                    <div className="hb-post-hero-number">
                         <img src="/images/logos/highball_icon_logo.png" alt="HighBaller Icon" className="hb-icon-img" />
                         {currentItem.number}
                     </div>
 
                     <div className="hb-post-hero-title">{currentItem.title}</div>
-                    <div className="hb-post-hero-meta">
-                        <span>Date : {currentItem.date}</span>
-                        <span>Author: {currentItem.author || 'Takuya Ota'}</span>
-                    </div>
+                    <div className="hb-post-hero-date">Date : {currentItem.date}</div>
+                    <div className="hb-post-hero-author">Author: {currentItem.author || 'Takuya Ota'}</div>
                 </div>
 
                 {/* OUTER */}
