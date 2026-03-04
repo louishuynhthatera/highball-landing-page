@@ -60,7 +60,7 @@ body {
     color: var(--white);
     min-height: 100vh;
     padding-bottom: 0px;
-    padding-top: 40px;
+    padding-top: 10px;
     width: 100vw;
     margin: 0;
     position: relative;
@@ -81,6 +81,12 @@ body {
     gap: var(--hb-gap);
     opacity: 0;
     /* Hidden by default for logo animation */
+}
+
+/* Hide global site elements on HighBaller pages */
+body.hb-pages #main-header,
+body.hb-pages .mobile-menu-btn {
+    display: none !important;
 }
 
 .highballer-header {
@@ -124,16 +130,58 @@ body {
 
 .hb-header-logo {
     display: inline-block;
-    margin: 20px auto;
     max-width: 100%;
-    height: auto;
-    width: clamp(200px, 20vw, 300px);
 }
 
 @media (max-width: 767px) {
     .hb-header-logo {
-        width: 134px !important;
-        margin: 15px auto;
+        width: 102px !important;
+        height: 21px !important;
+        margin: 45px auto !important;
+    }
+}
+
+/* Tablet 768 - 768px to 819px */
+@media (min-width: 768px) and (max-width: 819px) {
+    .hb-header-logo {
+        width: 102px !important;
+        height: 21px !important;
+        margin: 20px auto !important;
+    }
+}
+
+/* Tablet 820 - 820px to 1279px */
+@media (min-width: 820px) and (max-width: 1279px) {
+    .hb-header-logo {
+        width: 109px !important;
+        margin: 23px auto !important;
+    }
+}
+
+/* Desktop 1280 - 1280px to 1439px */
+@media (min-width: 1280px) and (max-width: 1439px) {
+    .hb-header-logo {
+        width: 146px !important;
+        height: 30px !important;
+        margin: 40px auto !important;
+    }
+}
+
+/* Desktop 1440 - 1440px to 1919px */
+@media (min-width: 1440px) and (max-width: 1919px) {
+    .hb-header-logo {
+        width: 182px !important;
+        height: 37px !important;
+        margin: 60px auto !important;
+    }
+}
+
+/* Desktop 1920 - min-width: 1920px */
+@media (min-width: 1920px) {
+    .hb-header-logo {
+        width: 250px !important;
+        height: 49px !important;
+        margin: 70px auto !important;
     }
 }
 

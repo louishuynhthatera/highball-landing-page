@@ -23,8 +23,10 @@ export default function HighBallerPage() {
 
         // Ensure global header is hidden on this page
         setShowHeader(false)
+        document.body.classList.add('hb-pages')
 
         return () => {
+            document.body.classList.remove('hb-pages')
             if ('scrollRestoration' in history) {
                 history.scrollRestoration = 'auto';
             }
