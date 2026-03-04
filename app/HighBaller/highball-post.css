@@ -219,6 +219,73 @@
     .hb-post-hero-date {
         font-size: 39px;
     }
+
+
+
+    .hb-post-author-avatar {
+        width: 64px !important;
+        height: 64px !important;
+        background: transparent;
+        /* Changed from gradient to transparent */
+        border: none;
+        /* User might not want a border for a 64px icon */
+    }
+
+    .hb-post-author-avatar .hb-icon-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: contain !important;
+        /* contain will ensure the image isn't cropped */
+    }
+
+    .hb-post-author-name {
+        font-size: 35px !important;
+    }
+
+    .hb-post-body p {
+        font-size: 26px !important;
+    }
+
+    .hb-post-sec-heading {
+        font-size: 38px !important;
+    }
+
+    .hb-post-article-footer {
+        font-size: 30px !important;
+    }
+
+    .hb-post-next-btn {
+        font-size: 27px !important;
+    }
+
+    .hb-post-idx-title {
+        font-size: 33px !important;
+    }
+
+    .hb-post-outer {
+        max-width: 1600px;
+    }
+
+    .hb-post-grid {
+        grid-template-columns: 1fr 327px;
+        gap: 60px;
+    }
+
+    .hb-post-sidebar,
+    .hb-post-idx-below {
+        display: block;
+    }
+
+    .hb-post-sidebar .hb-card,
+    .hb-post-idx-below .hb-card {
+        width: 327px !important;
+        height: 185px !important;
+    }
+
+    .hb-post-sidebar .hb-card .hb-card-number,
+    .hb-post-idx-below .hb-card .hb-card-number {
+        font-size: 48px;
+    }
 }
 
 /* Post Layout Content */
@@ -299,7 +366,7 @@
     overflow: hidden;
 }
 
-.hb-post-author-avatar .hb-author-img {
+.hb-post-author-avatar .hb-icon-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -360,7 +427,6 @@
     font-family: var(--font-en);
     font-size: .75rem;
     font-weight: 700;
-    color: #999;
 }
 
 .hb-post-next-wrap {
@@ -377,8 +443,7 @@
     font-weight: 700;
     letter-spacing: 1px;
     padding: 8px 28px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 4px;
+
     transition: background .2s, border-color .2s;
     cursor: pointer;
     text-decoration: none;
