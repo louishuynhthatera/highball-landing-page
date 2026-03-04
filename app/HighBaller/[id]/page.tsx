@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRef, useLayoutEffect, useEffect, useState } from 'react';
+import { useRef, useLayoutEffect, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { HIGHBALLER_ITEMS } from '@/lib/mock-data';
 import HighBallerCard from '@/components/highballer/HighBallerCard';
@@ -18,11 +18,6 @@ export default function PostDetailPage() {
     const { setShowHeader } = useAnimationState();
     const currentItem = HIGHBALLER_ITEMS.find(item => item.id === id) || HIGHBALLER_ITEMS[0];
     const contentRef = useRef<HTMLDivElement>(null);
-    const headerRef = useRef<HTMLElement>(null);
-
-    const [isHeaderFixed, setIsHeaderFixed] = useState(false)
-    const [headerHeight, setHeaderHeight] = useState(0)
-    const [threshold, setThreshold] = useState<number | null>(null)
 
     // Get other items for the sidebar/bottom list (excluding current and 'more')
     const otherItemsRaw = HIGHBALLER_ITEMS.filter(item => item.id !== id && !item.isMore);
@@ -36,8 +31,8 @@ export default function PostDetailPage() {
         }
         window.scrollTo(0, 0);
 
-        // Ensure header is shown if we navigate directly or from home
-        setShowHeader(true)
+        // Ensure global header is hidden on this page
+        setShowHeader(false)
 
         return () => {
             if ('scrollRestoration' in history) {
@@ -46,41 +41,12 @@ export default function PostDetailPage() {
         };
     }, [setShowHeader])
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (threshold === null || !headerRef.current) return;
-
-            if (window.scrollY >= threshold) {
-                if (!isHeaderFixed) {
-                    setIsHeaderFixed(true);
-                    setHeaderHeight(headerRef.current.offsetHeight);
-                }
-            } else {
-                if (isHeaderFixed) {
-                    setIsHeaderFixed(false);
-                }
-            }
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [isHeaderFixed, threshold]);
-
-    const handleSlideUp = () => {
-        // After logo slides up, calculate exactly when it should stick
-        const logoElement = document.querySelector('.hb-header-logo');
-        if (logoElement) {
-            const logoRect = logoElement.getBoundingClientRect();
-            const currentScroll = window.scrollY;
-            const menuPaddingTop = 16;
-            // threshold = current position - desired position + current scroll
-            setThreshold(logoRect.top + currentScroll - menuPaddingTop);
-        }
-
+    const handleLogoFadeIn = () => {
         if (contentRef.current) {
             gsap.to(contentRef.current, {
                 opacity: 1,
                 duration: 0.8,
+                delay: 0.2,
                 ease: "power2.out"
             });
         }
@@ -94,13 +60,9 @@ export default function PostDetailPage() {
 
     return (
         <div className="highballer-container">
-            {/* SITE HEADER */}
-            <header
-                className={`highballer-header ${isHeaderFixed ? 'header-sticky' : ''}`}
-                ref={headerRef}
-            >
+            <header className="highballer-header">
                 <HighBallerLogo
-                    onSlideUp={handleSlideUp}
+                    onFadeIn={handleLogoFadeIn}
                     className="hb-header-logo"
                     width={300}
                     height={100}
@@ -110,7 +72,6 @@ export default function PostDetailPage() {
             <div
                 className='highballer-main'
                 ref={contentRef}
-                style={isHeaderFixed ? { marginTop: `${headerHeight}px` } : {}}
             >
                 {/* HERO */}
                 <div className="hb-post-hero">
@@ -209,6 +170,6 @@ export default function PostDetailPage() {
 
                 <HighBallerFooter />
             </div>
-        </div >
+        </div>
     );
 }
