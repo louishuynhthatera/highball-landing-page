@@ -1,16 +1,28 @@
 'use client'
 
-import { useRef, useLayoutEffect } from 'react';
+import { useRef, useLayoutEffect, useEffect } from 'react';
 import { gsap } from 'gsap';
 import Link from 'next/link';
 import HighBallerLogo from '@/components/highballer/HighBallerLogo';
 import HighBallerFooter from '@/components/highballer/HighBallerFooter';
+import { useAnimationState } from '@/hooks/useAnimationState';
 import '../highballer.css';
 
 export default function StoragePage() {
     const contentRef = useRef<HTMLDivElement>(null);
+    const { setShowHeader } = useAnimationState();
 
-    const handleSlideUp = () => {
+    useEffect(() => {
+        // Ensure global header is hidden on this page
+        setShowHeader(false)
+        document.body.classList.add('hb-pages')
+
+        return () => {
+            document.body.classList.remove('hb-pages')
+        };
+    }, [setShowHeader])
+
+    const handleLogoFadeIn = () => {
         if (contentRef.current) {
             gsap.to(contentRef.current, {
                 opacity: 1,
@@ -31,7 +43,7 @@ export default function StoragePage() {
             {/* SITE HEADER */}
             <header className="highballer-header" style={{ position: 'sticky', top: 0, zIndex: 200, background: '#0b0c0c', borderBottom: '1px solid rgba(255, 255, 255, 0.12)', padding: '18px 24px 16px', textAlign: 'center' }}>
                 <HighBallerLogo
-                    onSlideUp={handleSlideUp}
+                    onFadeIn={handleLogoFadeIn}
                     className="hb-header-logo"
                     width={200}
                     height={60}
