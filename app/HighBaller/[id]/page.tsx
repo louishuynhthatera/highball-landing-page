@@ -144,7 +144,7 @@ export default function PostDetailPage() {
                         <article className="hb-post-article">
                             <div className="hb-post-author-row">
                                 <div className="hb-post-author-avatar">
-                                    <img src="/images/logos/highball_icon_logo.png" alt="Avatar" className="hb-author-img" />
+                                    <img src="/images/logos/highball_icon_logo.png" alt="Avatar" className="hb-icon-img" />
                                 </div>
                                 <div className="hb-post-author-name">{currentItem.author || 'Takuya Ota'} / CEO</div>
                             </div>
