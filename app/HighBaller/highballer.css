@@ -47,7 +47,6 @@ body {
 }
 
 .highballer-container {
-    --bg-color: #0b0c0c;
     --white: #ffffff;
     --accent: #f5c842;
     --card-overlay: rgba(0, 0, 0, 0.45);
@@ -192,7 +191,6 @@ body.hb-pages .mobile-menu-btn {
     position: relative;
     border-radius: var(--radius);
     overflow: hidden;
-    background: #1a1a1a;
     cursor: pointer;
     display: block;
     text-decoration: none;
@@ -222,7 +220,6 @@ body.hb-pages .mobile-menu-btn {
     font-weight: 700;
     color: var(--white);
     letter-spacing: 0.5px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -240,11 +237,9 @@ body.hb-pages .mobile-menu-btn {
     font-family: var(--font-ja);
     font-size: clamp(0.9rem, 1.8vw, 1.2rem);
     color: var(--white);
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.95);
-    font-weight: 900;
+    font-weight: 700;
     text-align: left;
     line-height: 1.4;
-    -webkit-text-stroke: 0.3px rgba(255, 255, 255, 0.6);
     z-index: 2;
 }
 
@@ -259,7 +254,6 @@ body.hb-pages .mobile-menu-btn {
     display: flex;
     align-items: center;
     gap: 2px;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
     letter-spacing: -0.5px;
     z-index: 2;
 }
@@ -452,7 +446,7 @@ body.hb-pages .mobile-menu-btn {
 }
 
 /* --- RESPONSIVE ADJUSTMENTS FOR MOBILE (390px baseline) --- */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
@@ -517,7 +511,7 @@ body.hb-pages .mobile-menu-btn {
 }
 
 /* --- RESPONSIVE ADJUSTMENTS FOR 768 TABLET --- */
-@media (min-width: 768px) and (max-width: 819px) {
+@media (min-width: 769px) and (max-width: 820px) {
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
@@ -581,7 +575,7 @@ body.hb-pages .mobile-menu-btn {
 }
 
 /* --- RESPONSIVE ADJUSTMENTS FOR 820 DESKTOP/TABLET --- */
-@media (min-width: 820px) and (max-width: 1279px) {
+@media (min-width: 821px) and (max-width: 1280px) {
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
@@ -645,7 +639,7 @@ body.hb-pages .mobile-menu-btn {
 }
 
 /* --- RESPONSIVE ADJUSTMENTS FOR 1280 DESKTOP --- */
-@media (min-width: 1280px) and (max-width: 1439px) {
+@media (min-width: 1281px) and (max-width: 1440px) {
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
@@ -709,7 +703,7 @@ body.hb-pages .mobile-menu-btn {
 }
 
 /* --- RESPONSIVE ADJUSTMENTS FOR 1440 DESKTOP --- */
-@media (min-width: 1440px) and (max-width: 1919px) {
+@media (min-width: 1441px) and (max-width: 1919px) {
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
