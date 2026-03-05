@@ -1,26 +1,12 @@
 /* --- POST DETAIL STYLES --- */
 
-/* Hero Section */
+/* Base Styles (Mobile Default) */
 .hb-post-hero {
     position: relative;
     width: 100%;
     height: 60vh;
-    /* Set as requested for desktop */
     overflow: hidden;
     background: #1a1a1a;
-}
-
-@media(max-width:819px) {
-    .hb-post-hero {
-        height: auto;
-        aspect-ratio: 16/9;
-    }
-}
-
-@media(max-width:599px) {
-    .hb-post-hero {
-        aspect-ratio: 4/3;
-    }
 }
 
 .hb-post-hero-bg {
@@ -59,10 +45,6 @@
     z-index: 2;
 }
 
-.hb-post-hero-number .hb-icon-img {
-    width: 0.8em;
-    height: 0.8em;
-}
 
 .hb-post-hero-title {
     position: absolute;
@@ -79,216 +61,25 @@
     z-index: 2;
 }
 
-.hb-post-hero-date {
-    position: absolute;
-    bottom: 24px;
-    left: 24px;
-    font-family: var(--font-en);
-    font-weight: 700;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, .9);
-    z-index: 2;
-}
-
+.hb-post-hero-date,
 .hb-post-hero-author {
     position: absolute;
     bottom: 24px;
-    right: 24px;
     font-family: var(--font-en);
     font-weight: 700;
     text-shadow: 0 1px 6px rgba(0, 0, 0, .9);
     z-index: 2;
 }
 
-/* --- RESPONSIVE SIZES --- */
-
-/* Mobile — max-width: 767px */
-@media (max-width: 767px) {
-    .hb-post-hero-number {
-        font-size: 27px;
-        top: 16px;
-        left: 16px;
-    }
-
-    .hb-post-hero-title {
-        font-size: 17px;
-    }
-
-    .hb-post-hero-author {
-        font-size: 8px;
-        bottom: 16px;
-        right: 16px;
-    }
-
-    .hb-post-hero-date {
-        font-size: 8px;
-        bottom: 16px;
-        left: 16px;
-    }
+.hb-post-hero-date {
+    left: 24px;
 }
 
-/* Tablet 768 — 768px đến 819px */
-@media (min-width: 768px) and (max-width: 819px) {
-    .hb-post-hero-number {
-        font-size: 54px;
-    }
-
-    .hb-post-hero-title {
-        font-size: 35px;
-    }
-
-    .hb-post-hero-author {
-        font-size: 16px;
-    }
-
-    .hb-post-hero-date {
-        font-size: 16px;
-    }
+.hb-post-hero-author {
+    right: 24px;
 }
 
-/* Tablet 820 — 820px đến 1279px */
-@media (min-width: 820px) and (max-width: 1279px) {
-    .hb-post-hero-number {
-        font-size: 58px;
-    }
-
-    .hb-post-hero-title {
-        font-size: 38px;
-    }
-
-    .hb-post-hero-author {
-        font-size: 17px;
-    }
-
-    .hb-post-hero-date {
-        font-size: 17px;
-    }
-}
-
-/* Desktop 1280 — 1280px đến 1439px */
-@media (min-width: 1280px) and (max-width: 1439px) {
-    .hb-post-hero-number {
-        font-size: 90px;
-    }
-
-    .hb-post-hero-title {
-        font-size: 58px;
-    }
-
-    .hb-post-hero-author {
-        font-size: 26px;
-    }
-
-    .hb-post-hero-date {
-        font-size: 26px;
-    }
-}
-
-/* Desktop 1440 — 1440px đến 1919px */
-@media (min-width: 1440px) and (max-width: 1919px) {
-    .hb-post-hero-number {
-        font-size: 102px;
-    }
-
-    .hb-post-hero-title {
-        font-size: 66px;
-    }
-
-    .hb-post-hero-author {
-        font-size: 30px;
-    }
-
-    .hb-post-hero-date {
-        font-size: 29px;
-    }
-}
-
-/* Desktop 1920 — min-width: 1920px trở lên */
-@media (min-width: 1920px) {
-    .hb-post-hero-number {
-        font-size: 93px;
-    }
-
-    .hb-post-hero-title {
-        font-size: 89px;
-    }
-
-    .hb-post-hero-author {
-        font-size: 39px;
-    }
-
-    .hb-post-hero-date {
-        font-size: 39px;
-    }
-
-
-
-    .hb-post-author-avatar {
-        width: 64px !important;
-        height: 64px !important;
-        background: transparent;
-        /* Changed from gradient to transparent */
-        border: none;
-        /* User might not want a border for a 64px icon */
-    }
-
-    .hb-post-author-avatar .hb-icon-img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: contain !important;
-        /* contain will ensure the image isn't cropped */
-    }
-
-    .hb-post-author-name {
-        font-size: 35px !important;
-    }
-
-    .hb-post-body p {
-        font-size: 26px !important;
-    }
-
-    .hb-post-sec-heading {
-        font-size: 38px !important;
-    }
-
-    .hb-post-article-footer {
-        font-size: 30px !important;
-    }
-
-    .hb-post-next-btn {
-        font-size: 27px !important;
-    }
-
-    .hb-post-idx-title {
-        font-size: 33px !important;
-    }
-
-    .hb-post-outer {
-        max-width: 1600px;
-    }
-
-    .hb-post-grid {
-        grid-template-columns: 1fr 327px;
-        gap: 60px;
-    }
-
-    .hb-post-sidebar,
-    .hb-post-idx-below {
-        display: block;
-    }
-
-    .hb-post-sidebar .hb-card,
-    .hb-post-idx-below .hb-card {
-        width: 327px !important;
-        height: 185px !important;
-    }
-
-    .hb-post-sidebar .hb-card .hb-card-number,
-    .hb-post-idx-below .hb-card .hb-card-number {
-        font-size: 48px;
-    }
-}
-
-/* Post Layout Content */
+/* Article & Layout Base */
 .hb-post-outer {
     max-width: 1380px;
     margin: 0 auto;
@@ -301,45 +92,6 @@
     align-items: start;
 }
 
-@media(min-width:820px) {
-    .hb-post-outer {
-        padding-top: 40px;
-    }
-
-    .hb-post-grid {
-        grid-template-columns: 1fr 200px;
-    }
-
-    .hb-post-sidebar {
-        display: block;
-    }
-}
-
-@media(max-width:819px) {
-    .hb-post-outer {
-        padding-top: 30px;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .hb-post-grid {
-        display: block;
-    }
-
-    .hb-post-sidebar {
-        display: none;
-    }
-}
-
-@media(max-width:599px) {
-    .hb-post-outer {
-        padding-top: 20px;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-}
-
-/* Article Styles */
 .hb-post-article {
     min-width: 0;
 }
@@ -381,7 +133,7 @@
 
 .hb-post-body p {
     font-family: var(--font-ja);
-    font-size: clamp(.86rem, 1.4vw, .95rem);
+    font-size: 18px;
     line-height: 1.9;
     color: rgba(255, 255, 255, .88);
     margin-bottom: 18px;
@@ -414,7 +166,7 @@
 
 .hb-post-sec-heading {
     font-family: var(--font-ja);
-    font-size: clamp(.98rem, 1.8vw, 1.18rem);
+    font-size: 26px;
     font-weight: 900;
     margin: 34px 0 14px;
     -webkit-text-stroke: .2px rgba(255, 255, 255, .35);
@@ -423,7 +175,6 @@
 .hb-post-article-footer {
     margin-top: 32px;
     padding-top: 18px;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
     font-family: var(--font-en);
     font-size: .75rem;
     font-weight: 700;
@@ -443,7 +194,6 @@
     font-weight: 700;
     letter-spacing: 1px;
     padding: 8px 28px;
-
     transition: background .2s, border-color .2s;
     cursor: pointer;
     text-decoration: none;
@@ -463,7 +213,7 @@
 
 .hb-post-idx-title {
     font-family: var(--font-en);
-    font-size: .9rem;
+    font-size: 20px;
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 12px;
@@ -481,16 +231,9 @@
     border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-@media(min-width:820px) {
-    .hb-post-idx-below {
-        display: none;
-    }
-}
-
 .hb-post-idx-below .hb-post-idx-title {
     text-align: left;
     margin-bottom: 24px;
-    font-size: clamp(2rem, 5vw, 3rem);
     text-transform: capitalize;
     font-weight: 900;
     border-bottom: 2px solid white;
@@ -510,40 +253,489 @@
     display: none !important;
 }
 
-/* Larger number for index cards on post page */
 .hb-post-sidebar .hb-card .hb-card-number,
 .hb-post-idx-below .hb-card .hb-card-number {
-    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-size: 22px;
     bottom: 10px;
     left: 10px;
 }
 
-@media(min-width:600px) and (max-width:819px) {
-    .hb-post-idx-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .hb-post-idx-grid .hb-card {
-        aspect-ratio: 16/7;
-    }
-}
-
-@media(max-width:599px) {
-    .hb-post-idx-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .hb-post-idx-grid .hb-card {
-        aspect-ratio: 16/9;
-    }
-}
-
-/* Sidebar cards use a larger fixed height */
 .hb-post-sidebar .hb-card {
     height: 100px;
 }
 
-/* Below article cards use aspect ratio */
 .hb-post-idx-grid .hb-card {
     aspect-ratio: 16/9;
+}
+
+/* --- MEDIA QUERIES (Ascending Order) --- */
+
+/* Mobile — max-width: 767px */
+@media (max-width: 767px) {
+    .hb-post-hero {
+        height: 203px;
+    }
+
+    .hb-post-hero-number {
+        font-size: 17px;
+        top: 16px;
+        left: 16px;
+    }
+
+    .hb-post-hero-title {
+        font-size: 17px;
+    }
+
+    .hb-post-hero-author,
+    .hb-post-hero-date {
+        font-size: 8px;
+        bottom: 16px;
+    }
+
+    .hb-post-hero-date {
+        left: 16px;
+    }
+
+    .hb-post-hero-author {
+        right: 16px;
+    }
+
+    .hb-post-author-avatar {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .hb-post-author-name {
+        font-size: 20px;
+    }
+
+    .hb-post-idx-title {
+        font-size: 20px;
+    }
+
+    .hb-post-body p {
+        font-size: 15px;
+    }
+
+    .hb-post-sec-heading {
+        font-size: 22px;
+    }
+
+    .hb-post-article-footer {
+        font-size: 15px;
+    }
+
+    .hb-post-next-btn {
+        font-size: 17px;
+    }
+
+    .hb-post-inline-photo {
+        height: 206px;
+        width: 366px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hb-post-grid {
+        display: block;
+    }
+
+    .hb-post-sidebar {
+        display: none;
+    }
+
+    .hb-post-outer {
+        padding-top: 30px;
+    }
+
+    .hb-post-sidebar .hb-card,
+    .hb-post-idx-below .hb-card {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 180 / 101 !important;
+    }
+
+    .hb-post-sidebar .hb-card .hb-card-number,
+    .hb-post-idx-below .hb-card .hb-card-number {
+        font-size: 18px !important;
+    }
+
+    .hb-post-idx-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+    }
+}
+
+/* Tablet 768 — 768px đến 819px */
+@media (min-width: 768px) {
+    .hb-post-hero {
+        height: 415px;
+    }
+
+    .hb-post-hero-number {
+        font-size: 37px;
+    }
+
+    .hb-post-hero-title {
+        font-size: 35px;
+    }
+
+    .hb-post-hero-author,
+    .hb-post-hero-date {
+        font-size: 15px;
+    }
+
+    .hb-post-author-avatar {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .hb-post-author-name {
+        font-size: 20px;
+    }
+
+    .hb-post-idx-title {
+        font-size: 20px;
+    }
+
+    .hb-post-body p {
+        font-size: 15px;
+    }
+
+    .hb-post-sec-heading {
+        font-size: 22px;
+    }
+
+    .hb-post-article-footer {
+        font-size: 17px;
+    }
+
+    .hb-post-next-btn {
+        font-size: 17px;
+    }
+
+    .hb-post-inline-photo {
+        height: 389px;
+        width: 692px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hb-post-sidebar .hb-card,
+    .hb-post-idx-below .hb-card {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 244 / 137 !important;
+    }
+
+    .hb-post-sidebar .hb-card .hb-card-number,
+    .hb-post-idx-below .hb-card .hb-card-number {
+        font-size: 24px !important;
+    }
+
+    .hb-post-idx-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 15px;
+    }
+}
+
+/* Tablet 820 — 820px đến 1279px */
+@media (min-width: 820px) {
+    .hb-post-hero {
+        height: 446px;
+    }
+
+    .hb-post-hero-number {
+        font-size: 39px;
+    }
+
+    .hb-post-hero-title {
+        font-size: 38px;
+    }
+
+    .hb-post-hero-author,
+    .hb-post-hero-date {
+        font-size: 16px;
+    }
+
+    .hb-post-author-avatar {
+        width: 39px !important;
+        height: 39px !important;
+    }
+
+    .hb-post-author-name {
+        font-size: 22px;
+    }
+
+    .hb-post-idx-title {
+        font-size: 22px;
+    }
+
+    .hb-post-body p {
+        font-size: 16px;
+    }
+
+    .hb-post-sec-heading {
+        font-size: 26px;
+    }
+
+    .hb-post-article-footer {
+        font-size: 19px;
+    }
+
+    .hb-post-next-btn {
+        font-size: 18px;
+    }
+
+    .hb-post-inline-photo {
+        height: 419px;
+        width: 744px;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hb-post-grid {
+        grid-template-columns: 1fr 200px;
+        gap: 44px;
+    }
+
+    .hb-post-sidebar {
+        display: block;
+    }
+
+    .hb-post-idx-below {
+        display: none;
+    }
+
+    .hb-post-outer {
+        padding-top: 40px;
+    }
+
+    .hb-post-sidebar .hb-card,
+    .hb-post-idx-below .hb-card {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 260 / 147 !important;
+    }
+
+    .hb-post-sidebar .hb-card .hb-card-number,
+    .hb-post-idx-below .hb-card .hb-card-number {
+        font-size: 26px !important;
+    }
+}
+
+/* Desktop 1280 — 1280px đến 1439px */
+@media (min-width: 1280px) {
+    .hb-post-hero {
+        height: 50vh;
+    }
+
+    .hb-post-hero-number {
+        font-size: 61px;
+    }
+
+    .hb-post-hero-title {
+        font-size: 60px;
+    }
+
+    .hb-post-hero-author,
+    .hb-post-hero-date {
+        font-size: 25px;
+    }
+
+    .hb-post-author-avatar {
+        width: 42px !important;
+        height: 42px !important;
+    }
+
+    .hb-post-author-name {
+        font-size: 24px;
+    }
+
+    .hb-post-idx-title {
+        font-size: 21px;
+    }
+
+    .hb-post-body p {
+        font-size: 18px;
+    }
+
+    .hb-post-sec-heading {
+        font-size: 26px;
+    }
+
+    .hb-post-article-footer {
+        font-size: 21px;
+    }
+
+    .hb-post-next-btn {
+        font-size: 20px;
+    }
+
+    .hb-post-inline-photo {
+        height: 458px;
+        width: 813px;
+        max-width: 100%;
+    }
+
+    .hb-post-sidebar .hb-card,
+    .hb-post-idx-below .hb-card {
+        width: 216px !important;
+        height: 122px !important;
+        aspect-ratio: auto !important;
+    }
+
+    .hb-post-sidebar .hb-card .hb-card-number,
+    .hb-post-idx-below .hb-card .hb-card-number {
+        font-size: 22px !important;
+    }
+}
+
+/* Desktop 1440 — 1440px đến 1919px */
+@media (min-width: 1440px) {
+    .hb-post-hero {
+        height: 793px;
+    }
+
+    .hb-post-hero-number {
+        font-size: 70px;
+    }
+
+    .hb-post-hero-title {
+        font-size: 69px;
+    }
+
+    .hb-post-hero-author,
+    .hb-post-hero-date {
+        font-size: 29px;
+    }
+
+    .hb-post-author-avatar {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    .hb-post-author-name {
+        font-size: 27px;
+    }
+
+    .hb-post-idx-title {
+        font-size: 25px;
+    }
+
+    .hb-post-body p {
+        font-size: 20px;
+    }
+
+    .hb-post-sec-heading {
+        font-size: 29px;
+    }
+
+    .hb-post-article-footer {
+        font-size: 23px;
+    }
+
+    .hb-post-next-btn {
+        font-size: 20px;
+    }
+
+    .hb-post-inline-photo {
+        height: 520px;
+        width: 925px;
+        max-width: 100%;
+    }
+
+    .hb-post-sidebar .hb-card,
+    .hb-post-idx-below .hb-card {
+        width: 246px !important;
+        height: 138px !important;
+    }
+
+    .hb-post-sidebar .hb-card .hb-card-number,
+    .hb-post-idx-below .hb-card .hb-card-number {
+        font-size: 25px !important;
+    }
+}
+
+/* Desktop 1920 — min-width: 1920px trở lên */
+@media (min-width: 1920px) {
+    .hb-post-hero {
+        height: 1062px;
+    }
+
+    .hb-post-hero-number {
+        font-size: 136px;
+    }
+
+    .hb-icon-img {
+        width: 93px;
+        height: 93px;
+    }
+
+    .hb-post-hero-title {
+        font-size: 92px;
+    }
+
+    .hb-post-hero-author,
+    .hb-post-hero-date {
+        font-size: 38px;
+    }
+
+    .hb-post-author-avatar {
+        width: 64px !important;
+        height: 64px !important;
+    }
+
+    .hb-post-author-name {
+        font-size: 35px !important;
+    }
+
+    .hb-post-idx-title {
+        font-size: 33px !important;
+    }
+
+    .hb-post-body p {
+        font-size: 26px !important;
+    }
+
+    .hb-post-sec-heading {
+        font-size: 42px !important;
+    }
+
+    .hb-post-article-footer {
+        font-size: 30px !important;
+    }
+
+    .hb-post-next-btn {
+        font-size: 26px !important;
+    }
+
+    .hb-post-inline-photo {
+        height: 694px;
+        width: 1234px;
+        max-width: 100%;
+    }
+
+    .hb-post-sidebar .hb-card,
+    .hb-post-idx-below .hb-card {
+        width: 327px !important;
+        height: 185px !important;
+    }
+
+    .hb-post-sidebar .hb-card .hb-card-number,
+    .hb-post-idx-below .hb-card .hb-card-number {
+        font-size: 33px !important;
+    }
+
+    .hb-post-outer {
+        max-width: 1600px;
+    }
+
+    .hb-post-grid {
+        grid-template-columns: 1fr 327px;
+        gap: 60px;
+    }
 }
