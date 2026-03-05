@@ -1,4 +1,4 @@
-import Link from 'next/link';
+// import Link from 'next/link';
 import { HighBallerItem } from '@/types/highballer';
 
 interface HighBallerCardProps {
@@ -12,7 +12,7 @@ export default function HighBallerCard({ item, variant = 'thumbnail', className 
     const href = isMore ? '/HighBaller/storage' : `/HighBaller/${item.id}`;
 
     return (
-        <Link href={href} className={`hb-card hb-card-${variant} ${className}`}>
+        <div className={`hb-card hb-card-${variant} ${className}`} style={{ cursor: 'default' }}>
             <img src={item.image} alt={item.title} />
 
 
@@ -37,6 +37,6 @@ export default function HighBallerCard({ item, variant = 'thumbnail', className 
                     Author: {item.author}
                 </div>
             )}
-        </Link>
+        </div>
     );
 }
