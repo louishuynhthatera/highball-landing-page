@@ -207,6 +207,7 @@
 
 /* Sidebar and Below-Article Index */
 .hb-post-sidebar {
+    display: none;
     position: sticky;
     top: 120px;
 }
@@ -339,10 +340,6 @@
 
     .hb-post-grid {
         display: block;
-    }
-
-    .hb-post-sidebar {
-        display: none;
     }
 
     .hb-post-outer {
