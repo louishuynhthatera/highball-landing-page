@@ -61,7 +61,7 @@ const HighBallerLogo = ({
             }}
         >
             <Image
-                src="/images/logos/logo_highball.png"
+                src="/images/logos/logo_highball.svg"
                 alt="HighBaller"
                 width={width}
                 height={height}
