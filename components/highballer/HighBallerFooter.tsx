@@ -9,7 +9,7 @@ export default function HighBallerFooter() {
                 onClick={() => window.open('https://highball.jp/', '_blank')}
             >
                 <Image
-                    src="/images/logos/hb_cta_btn.png"
+                    src="/images/logos/hb_cta_btn.svg"
                     alt="HighBaller になりたい！"
                     width={250}
                     height={80}

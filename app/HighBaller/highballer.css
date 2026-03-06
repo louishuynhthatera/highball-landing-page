@@ -1,5 +1,23 @@
 /* HighBaller Page Styles extracted and refined from top.html */
 
+/* --- BREAKPOINTS REFERENCE --- 
+   Mobile:        max-width: 767px
+   Tablet Small:    min-width: 768px  and max-width: 819px
+   Tablet Large:    min-width: 820px  and max-width: 1279px
+   Desktop Small:   min-width: 1280px and max-width: 1439px
+   Desktop Medium: min-width: 1440px and max-width: 1919px
+   Desktop Large:   min-width: 1920px
+*/
+
+:root {
+    --bp-mobile: 767px;
+    --bp-tablet-s: 768px;
+    --bp-tablet-l: 820px;
+    --bp-desktop-s: 1280px;
+    --bp-desktop-m: 1440px;
+    --bp-desktop-l: 1920px;
+}
+
 @font-face {
     font-family: 'NeueHaasGrotesk';
     src: url('/fonts/NeueHaasDisplayBold.ttf') format('truetype');
@@ -26,10 +44,12 @@
 
 .en {
     font-family: var(--font-en) !important;
+    font-weight: 700;
 }
 
 .ja {
     font-family: var(--font-ja) !important;
+    font-weight: 800;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -234,13 +254,36 @@ body.hb-pages .mobile-menu-btn {
     right: 15px;
     display: flex;
     align-items: center;
-    font-family: var(--font-ja);
-    font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+    flex-wrap: wrap;
+    /* Allow wrapping if needed */
     color: var(--white);
-    font-weight: 700;
     text-align: left;
     line-height: 1.4;
     z-index: 2;
+    font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+    /* Keep responsive scaling */
+}
+
+.hb-card-title .en {
+    font-family: var(--font-en);
+    font-weight: 700;
+}
+
+.hb-card-title .ja {
+    font-family: var(--font-ja);
+    font-weight: 800;
+}
+
+/* Base relative scaling for non-hero cards */
+.hb-card-secondary .hb-card-title .en,
+.hb-card-thumbnail .hb-card-title .en {
+    font-size: 1em;
+}
+
+.hb-card-secondary .hb-card-title .ja,
+.hb-card-thumbnail .hb-card-title .ja {
+    font-size: 0.9em;
+    /* JP font often looks visually larger, so we scale it down slightly */
 }
 
 .hb-card-number {
@@ -399,8 +442,9 @@ body.hb-pages .mobile-menu-btn {
 }
 
 .hb-footer .logo img {
-    height: 32px;
-    width: auto;
+    height: auto;
+    width: 171px;
+    /* Default Desktop Large */
     display: block;
 }
 
@@ -445,12 +489,12 @@ body.hb-pages .mobile-menu-btn {
     margin-top: 5px;
 }
 
-/* --- RESPONSIVE ADJUSTMENTS FOR MOBILE (390px baseline) --- */
-@media (max-width: 768px) {
+/* --- RESPONSIVE ADJUSTMENTS FOR MOBILE --- */
+@media (max-width: 767px) {
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .hb-card-hero .hb-card-title {
@@ -495,6 +539,24 @@ body.hb-pages .mobile-menu-btn {
         font-size: 24px;
     }
 
+    /* MIXED TITLE FONT SIZES (ONLY FOR HERO) */
+    .hb-card-hero .hb-card-title .en {
+        font-size: 19px;
+    }
+
+    .hb-card-hero .hb-card-title .ja {
+        font-size: 17px;
+    }
+
+    /* FOOTER RESPONSIVE */
+    .hb-cta-img {
+        width: 200px !important;
+    }
+
+    .hb-footer .logo img {
+        width: 100px !important;
+    }
+
     /* HEIGHTS */
     .hb-card-hero {
         height: 206px;
@@ -510,12 +572,12 @@ body.hb-pages .mobile-menu-btn {
     }
 }
 
-/* --- RESPONSIVE ADJUSTMENTS FOR 768 TABLET --- */
-@media (min-width: 769px) and (max-width: 820px) {
+/* --- RESPONSIVE ADJUSTMENTS FOR TABLET NHỎ --- */
+@media (min-width: 768px) and (max-width: 819px) {
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .hb-card-hero .hb-card-title {
@@ -560,6 +622,24 @@ body.hb-pages .mobile-menu-btn {
         font-size: 32px;
     }
 
+    /* MIXED TITLE FONT SIZES (ONLY FOR HERO) */
+    .hb-card-hero .hb-card-title .en {
+        font-size: 35px;
+    }
+
+    .hb-card-hero .hb-card-title .ja {
+        font-size: 30px;
+    }
+
+    /* FOOTER RESPONSIVE */
+    .hb-cta-img {
+        width: 208px !important;
+    }
+
+    .hb-footer .logo img {
+        width: 69px !important;
+    }
+
     /* HEIGHTS */
     .hb-card-hero {
         height: 414px;
@@ -574,8 +654,8 @@ body.hb-pages .mobile-menu-btn {
     }
 }
 
-/* --- RESPONSIVE ADJUSTMENTS FOR 820 DESKTOP/TABLET --- */
-@media (min-width: 821px) and (max-width: 1280px) {
+/* --- RESPONSIVE ADJUSTMENTS FOR TABLET LỚN --- */
+@media (min-width: 820px) and (max-width: 1279px) {
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
@@ -624,13 +704,31 @@ body.hb-pages .mobile-menu-btn {
         font-size: 34px;
     }
 
+    /* MIXED TITLE FONT SIZES (ONLY FOR HERO) */
+    .hb-card-hero .hb-card-title .en {
+        font-size: 36px;
+    }
+
+    .hb-card-hero .hb-card-title .ja {
+        font-size: 32px;
+    }
+
+    /* FOOTER RESPONSIVE */
+    .hb-cta-img {
+        width: 217px !important;
+    }
+
+    .hb-footer .logo img {
+        width: 73px !important;
+    }
+
     /* HEIGHTS */
     .hb-card-hero {
         height: 445px;
     }
 
     .hb-secondary-pair {
-        height: 445px;
+        height: 222px;
     }
 
     .hb-grid-bottom .hb-card {
@@ -638,8 +736,8 @@ body.hb-pages .mobile-menu-btn {
     }
 }
 
-/* --- RESPONSIVE ADJUSTMENTS FOR 1280 DESKTOP --- */
-@media (min-width: 1281px) and (max-width: 1440px) {
+/* --- RESPONSIVE ADJUSTMENTS FOR DESKTOP NHỎ --- */
+@media (min-width: 1280px) and (max-width: 1439px) {
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
@@ -688,6 +786,24 @@ body.hb-pages .mobile-menu-btn {
         font-size: 32px;
     }
 
+    /* MIXED TITLE FONT SIZES (ONLY FOR HERO) */
+    .hb-card-hero .hb-card-title .en {
+        font-size: 37px;
+    }
+
+    .hb-card-hero .hb-card-title .ja {
+        font-size: 33px;
+    }
+
+    /* FOOTER RESPONSIVE */
+    .hb-cta-img {
+        width: 346px !important;
+    }
+
+    .hb-footer .logo img {
+        width: 115px !important;
+    }
+
     /* HEIGHTS */
     .hb-card-hero {
         height: 469px;
@@ -702,12 +818,12 @@ body.hb-pages .mobile-menu-btn {
     }
 }
 
-/* --- RESPONSIVE ADJUSTMENTS FOR 1440 DESKTOP --- */
-@media (min-width: 1441px) and (max-width: 1919px) {
+/* --- RESPONSIVE ADJUSTMENTS FOR DESKTOP TRUNG --- */
+@media (min-width: 1440px) and (max-width: 1919px) {
 
     /* HERO CARD */
     .hb-card-hero .hb-card-meta {
-        font-size: 19px;
+        font-size: 20px;
     }
 
     .hb-card-hero .hb-card-title {
@@ -752,6 +868,24 @@ body.hb-pages .mobile-menu-btn {
         font-size: 36px;
     }
 
+    /* MIXED TITLE FONT SIZES (ONLY FOR HERO) */
+    .hb-card-hero .hb-card-title .en {
+        font-size: 41px;
+    }
+
+    .hb-card-hero .hb-card-title .ja {
+        font-size: 37px;
+    }
+
+    /* FOOTER RESPONSIVE */
+    .hb-cta-img {
+        width: 389px !important;
+    }
+
+    .hb-footer .logo img {
+        width: 130px !important;
+    }
+
     /* HEIGHTS */
     .hb-card-hero {
         height: 528px;
@@ -766,7 +900,7 @@ body.hb-pages .mobile-menu-btn {
     }
 }
 
-/* --- RESPONSIVE ADJUSTMENTS FOR 1920 DESKTOP --- */
+/* --- RESPONSIVE ADJUSTMENTS FOR DESKTOP LỚN --- */
 @media (min-width: 1920px) {
 
     /* HERO CARD */
@@ -814,6 +948,24 @@ body.hb-pages .mobile-menu-btn {
 
     .hb-card-thumbnail .hb-card-number {
         font-size: 54px;
+    }
+
+    /* MIXED TITLE FONT SIZES (ONLY FOR HERO) */
+    .hb-card-hero .hb-card-title .en {
+        font-size: 56px;
+    }
+
+    .hb-card-hero .hb-card-title .ja {
+        font-size: 49px;
+    }
+
+    /* FOOTER RESPONSIVE */
+    .hb-cta-img {
+        width: 510px !important;
+    }
+
+    .hb-footer .logo img {
+        width: 171px !important;
     }
 
     /* HEIGHTS */
